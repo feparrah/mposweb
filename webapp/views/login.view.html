@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div style="margin-top: 50px; margin-bottom: 20px;overflow: hidden">
+                <form name="vm.loginForm" novalidate ng-submit="vm.login()">
+                    <div style="text-align: right"><h4><small ng-bind="'LOGIN_TITLE' | translate"></small> </h4></div>
+                    <div class="form-group has-feedback" ng-class="{'has-error' : vm.loginForm.username.$touched && vm.loginForm.username.$invalid}">
+                        <label for="username" ng-bind="'LOGIN_USERNAME_LABEL' | translate"></label>
+                        <input type="text" name="username" id="username" class="form-control" required ng-model="vm.credentials.username">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <div ng-messages="vm.loginForm.username.$touched && vm.loginForm.username.$error" class="help-block">
+                            <div ng-message="required">{{'REQUIRED_FIELD_ERROR' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{'has-error' : vm.loginForm.password.$touched && vm.loginForm.password.$invalid}">
+                        <label for="password" ng-bind="'LOGIN_PASSWORD_LABEL' | translate"></label>
+                        <input type="password" name="password" id="password" class="form-control" required ng-model="vm.credentials.password">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <div ng-messages="vm.loginForm.password.$touched && vm.loginForm.password.$error" class="help-block">
+                            <div ng-message="required">{{'REQUIRED_FIELD_ERROR' | translate}}</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm pull-right">Entrar &nbsp; <span class="glyphicon glyphicon-log-in"></span></button>
+                </form>
+            </div>
+                    <div ng-if="vm.showLoginError" class="alert alert-danger" ng-bind="'LOGIN_WRONG_CREDENTIALS' | translate"></div>
+        </div>
+    </div>
+</div>

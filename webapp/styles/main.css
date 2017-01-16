@@ -1,0 +1,53 @@
+#appBanner {
+    height: 100px;
+    background-image: url("../images/Banner-PortalWebMerchant.png");
+    background-repeat: no-repeat;
+    border-top : 1px solid black;
+    border-bottom: 1px solid black;
+
+}
+
+.navbar{
+    min-height: 30px !important;
+}
+
+.navbar-brand{
+    height: 30px !important;
+    padding: 5px 15px !important;
+}
+
+.navbar-nav>li>a {
+    padding: 5px 15px !important;
+}
+
+.navbar-default {
+    background-color: #627e96 !important;
+    border-top: 3px solid #1c496f;
+    border-bottom: 4px solid #1c496f;
+}
+
+.navbar-default a {
+    color : white !important;
+    text-shadow: 1px 1px 1px black;
+    font-size: 16px;
+}
+
+.navbar-toggle {
+    border-color: transparent !important;
+    padding: 0 !important;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: transparent !important;
+}
+
+.navbar-toggle .icon-bar{
+    background-color: white !important;
+}
+
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mpos">
+<head>
+    <meta charset="UTF-8">
+    <title>MPOS</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body ng-controller="mainCtrl as vm">
+<div class="container-fluid">
+    <div class="row" style="padding: 5px;">
+        <div class="col-md-5">
+            <img src="images/Banner-PortalWebMerchant.png" alt="">
+        </div>
+
+        <div class="col-md-4 col-md-offset-3">
+
+            <div class="row">
+                <div class="col-xs-6 col-md-5"><b>Bienvenido</b></div>
+                <div class="col-xs-6 col-md-7">Andres Felipe</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-5"><b>Fecha Ultimo Ingreso</b></div>
+                <div class="col-xs-6 col-md-7">16/01/2017 15:34:12</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-5"><b>Ip Ultimo Ingreso</b></div>
+                <div class="col-xs-6 col-md-7">127.0.0.1</div>
+            </div>
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-sm btn-default pull-right" style="margin-top: 5px;">Salir &nbsp; &nbsp;<span class="glyphicon glyphicon-log-out"></span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainMenu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Inicio</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainMenu">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Comercios NIT</a> </li>
+                <li><a href="#">Codigo Unico</a> </li>
+                <li><a href="#">Terminales</a> </li>
+                <li><a href="#">Usuarios Adm</a> </li>
+                <li><a href="#">Usuarios Comercios </a></li>
+                <li><a href="#">Consultas</a> </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <ui-view></ui-view>
+
+<div class="footer-bottom">
+    <img src="images/Footer-PortalWebMerchant.png" alt="">
+</div>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular-cookies/angular-cookies.min.js"></script>
+<script src="lib/angular-resource/angular-resource.min.js"></script>
+<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="lib/angular-translate/angular-translate.min.js"></script>
+<script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="lib/angular-messages/angular-messages.min.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/services/login.service.js"></script>
+<script src="scripts/controllers/main.controller.js"></script>
+</body>
+</html>
