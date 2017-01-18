@@ -1,4 +1,4 @@
-angular.module('mpos',['ui.router','pascalprecht.translate','ngMessages','ngResource','ngCookies']);
+angular.module('mpos',['ui.router','pascalprecht.translate','ngMessages','ngResource','ngCookies','base64']);
 let config = ($stateProvider, $urlRouterProvider,$translateProvider)=>{
     $stateProvider.state('login',{
         url : '/login',

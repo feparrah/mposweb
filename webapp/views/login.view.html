@@ -23,7 +23,7 @@
                     <button type="submit" class="btn btn-primary btn-sm pull-right">Entrar &nbsp; <span class="glyphicon glyphicon-log-in"></span></button>
                 </form>
             </div>
-                    <div ng-if="vm.showLoginError" class="alert alert-danger" ng-bind="'LOGIN_WRONG_CREDENTIALS' | translate"></div>
+                    <div ng-if="vm.showLoginError" class="alert alert-danger" ng-bind="vm.loginError"></div>
         </div>
     </div>
 </div>
