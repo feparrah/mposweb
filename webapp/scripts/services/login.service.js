@@ -53,6 +53,9 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                 version: $base64.encode('4.2.2'),
                 ipAddress: $base64.encode('192.168.215.239')
             };
+            $rootScope.currentUser = {};
+            $cookieStore.put('jd_session', {});
+            def.resolve();
             $http({
                 url: '/api/sessions',
                 method: 'POST',
@@ -70,13 +73,14 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                 };
 
 
+                /*
                 if (userInfo.loginState === '1') {
                     $rootScope.currentUser = userInfo;
                     $cookieStore.put('jd_session', userInfo);
                     def.resolve();
                 } else {
                     def.reject(userInfo.descriptionState)
-                }
+                }*/
 
 
             });

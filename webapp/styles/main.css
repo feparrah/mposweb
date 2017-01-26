@@ -2,21 +2,21 @@
     height: 100px;
     background-image: url("../images/Banner-PortalWebMerchant.png");
     background-repeat: no-repeat;
-    border-top : 1px solid black;
+    border-top: 1px solid black;
     border-bottom: 1px solid black;
 
 }
 
-.navbar{
+.navbar {
     min-height: 37px !important;
 }
 
-.navbar-brand{
+.navbar-brand {
     height: 30px !important;
     padding: 5px 15px !important;
 }
 
-.navbar-nav>li>a {
+.navbar-nav > li > a {
     padding: 5px 15px !important;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .navbar-default a {
-    color : white !important;
+    color: white !important;
     text-shadow: 1px 1px 1px black;
     font-size: 16px;
 }
@@ -36,14 +36,14 @@
     border-color: transparent !important;
     padding: 0 !important;
 }
+
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
     background-color: transparent !important;
 }
 
-.navbar-toggle .icon-bar{
+.navbar-toggle .icon-bar {
     background-color: white !important;
 }
-
 
 .footer-bottom {
     width: 100%;
@@ -52,10 +52,28 @@
     bottom: 0;
 }
 
-.visibleElement{
+.visibleElement {
     opacity: 1 !important;
 }
 
 .hiddenElement {
     opacity: 0;
+}
+
+@media (min-width: 992px) {
+
+    .btn150px {
+        width: 150px;
+        margin-top: 25px;
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .btn150px {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
 }

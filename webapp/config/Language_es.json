@@ -1,7 +1,40 @@
 {
-  "LOGIN_TITLE" : "Ingrese su usuario y contraseña",
-  "LOGIN_USERNAME_LABEL" : "# Identificación :",
-  "LOGIN_PASSWORD_LABEL" : "Contraseña :",
-  "LOGIN_WRONG_CREDENTIALS" : "Usuario y/o contraseña incorrectos",
-  "REQUIRED_FIELD_ERROR" : "Este campo es requerido"
+  "LOGIN_TITLE": "Ingrese su usuario y contraseña",
+  "LOGIN_USERNAME_LABEL": "# Identificación :",
+  "LOGIN_PASSWORD_LABEL": "Contraseña :",
+  "LOGIN_WRONG_CREDENTIALS": "Usuario y/o contraseña incorrectos",
+  "RECOVERY_PASS_TITLE" : "Ingrese su usuario",
+  "ERRORS": {
+    "REQUIRED_FIELD": "Este campo es requerido",
+    "ONLY_NUMBERS_FIELD": "Digite solo caracteres numericos",
+    "MAX_LENGTH_FIELD": "Digite maximo {{max}} caracteres",
+    "EMAIL_FIELD" : "Ingrese un correo electronico valido"
+  },
+  "LABELS": {
+    "NIT": "Nit ",
+    "BUSSINES_NAME" : "Razón Social ",
+    "ADDRESS" : "Dirección ",
+    "CITY" : "Ciudad",
+    "COUNTRY" : "Pais",
+    "CONTACT_NAME" : "Nombre Contacto",
+    "CONTACT_PHONE" : "Telefono Contacto",
+    "ACTIVE" : "Activo",
+    "YES" : "Si",
+    "NO" : "No",
+    "UNIQUE_CODE" : "Código Único",
+    "COMERCE_NAME" : "Nombre Comercio",
+    "EMAIL" : "Correo Electronico",
+    "TERMINAL" : "Terminal",
+    "MOBILE_NUMBER" : "Numero Movil",
+    "LICENCE" : "Licencia",
+    "MOBILE_IMEI" : "Imei - Movil",
+    "USER" : "Usuario",
+    "DOC_TYPE" : "Tipo de Documento",
+    "DOC_NUMBER" : "Numero de documento",
+    "NAME" : "Nombres",
+    "LASTNAME" : "Apellidos",
+    "PASSWORD" : "Contraseña",
+    "USER_TYPE" : "Tipo Usuario",
+    "USER_TYPE_NUMBER" : "Nit - Cu - Terminal"
+  }
 }

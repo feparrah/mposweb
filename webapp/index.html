@@ -32,7 +32,8 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-top: 5px;" ng-click="vm.logout()">Salir
+                        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-top: 5px;"
+                                ng-click="vm.logout()">Salir
                             &nbsp; &nbsp;<span class="glyphicon glyphicon-log-out"></span></button>
                     </div>
                 </div>
@@ -52,29 +53,33 @@
                 <span class="icon-bar"></span>
             </button>
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
-            <a class="navbar-brand" href="#">Inicio</a>
+                <a class="navbar-brand" href="#">Inicio</a>
             </div>
         </div>
 
         <div class="collapse navbar-collapse" id="mainMenu">
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Comercios NIT</a></li>
-                <li><a href="#">Codigo Unico</a></li>
-                <li><a href="#">Terminales</a></li>
-                <li><a href="#">Usuarios Adm</a></li>
-                <li><a href="#">Usuarios Comercios </a></li>
-                <li><a href="#">Consultas</a></li>
-            </ul>
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="comerces">Comercios NIT</a></li>
+                    <li><a ui-sref="ucode">Codigo Unico</a></li>
+                    <li><a ui-sref="terminals">Terminales</a></li>
+                    <li><a ui-sref="ausers">Usuarios Adm</a></li>
+                    <li><a ui-sref="cusers">Usuarios Comercios </a></li>
+                    <li><a href="#">Consultas</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ui-sref="changepass">Cambiar Contraseña</a></li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 <ui-view></ui-view>
 
+<!--
 <div class="footer-bottom">
     <img src="images/Footer-PortalWebMerchant.png" alt="">
-</div>
+</div>-->
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -90,5 +95,10 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/services/login.service.js"></script>
 <script src="scripts/controllers/main.controller.js"></script>
+<script src="scripts/controllers/comerces.controller.js"></script>
+<script src="scripts/controllers/unique-code.controller.js"></script>
+<script src="scripts/controllers/terminals.controller.js"></script>
+<script src="scripts/controllers/ausers.controller.js"></script>
+<script src="scripts/controllers/cusers.controller.js"></script>
 </body>
 </html>

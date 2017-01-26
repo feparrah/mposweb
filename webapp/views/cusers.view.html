@@ -1,0 +1,149 @@
+<div class="container-fluid">
+    <div class="row">
+        <form name="vm.cUserForm" novalidate>
+            <div class="col-md-5 col-md-offset-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Usuarios Comercio</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.user.$touched || vm.cUserForm.user.$dirty) && vm.cUserForm.user.$invalid}">
+                            <label for="user">{{'LABELS.USER' | translate}}</label>
+                            <input type="text" name="user" id="user" ng-model="vm.user.id" required ng-maxlength="50" class="form-control">
+                            <div ng-messages="(vm.cUserForm.user.$touched || vm.cUserForm.user.$dirty) && vm.cUserForm.user.$error" class="help-block">
+                                <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:50}'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary btn150px">Consultar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.doctype.$touched || vm.cUserForm.doctype.$dirty) && vm.cUserForm.doctype.$invalid}">
+                                    <label for="doctype">{{'LABELS.DOC_TYPE' | translate}}</label>
+                                    <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.doctype" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="1">NIT</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.docnumber.$touched || vm.cUserForm.docnumber.$dirty) && vm.cUserForm.docnumber.$invalid}">
+                                    <label for="docnumber">{{'LABELS.DOC_NUMBER' | translate}}</label>
+                                    <input type="text" name="docnumber" id="docnumber" ng-model="vm.user.docnumber" class="form-control" required ng-maxlength="12" ng-pattern="/^\d*$/">
+                                    <div ng-messages="(vm.cUserForm.docnumber.$touched || vm.cUserForm.docnumber.$dirty) && vm.cUserForm.docnumber.$error" class="help-block">
+                                        <div ng-message="pattern">{{'ERRORS.ONLY_NUMBERS_FIELD' | translate}}</div>
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:12}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.usertype.$touched || vm.cUserForm.usertype.$dirty) && vm.cUserForm.usertype.$invalid}">
+                                    <label for="usertype">{{'LABELS.USER_TYPE' | translate}}</label>
+                                    <select name="usertype" id="usertype" class="form-control" ng-model="vm.user.usertype" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="1">NIT</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="usertypeNumber">{{'LABELS.USER_TYPE_NUMBER' | translate}}</label>
+                                    <input type="text" name="usertypeNumber" id="usertypeNumber" ng-model="usertypeNumber" class="form-control" ng-maxlength="2" required >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.email.$touched || vm.cUserForm.email.$dirty) && vm.cUserForm.email.$invalid}">
+                                    <label for="email">{{'LABELS.EMAIL' | translate}}</label>
+                                    <input type="text" name="email" id="email" ng-model="vm.user.email" class="form-control" required ng-maxlength="60" ng-pattern="/^.+@[a-z0-9]+\.[a-z\.]{1,}$/i">
+                                    <div ng-messages="(vm.cUserForm.email.$touched || vm.cUserForm.email.$dirty) && vm.cUserForm.email.$error" class="help-block">
+                                        <div ng-message="pattern">{{'ERRORS.EMAIL_FIELD' | translate}}</div>
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:60}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$invalid}">
+                                    <label for="name">{{'LABELS.NAME' | translate}}</label>
+                                    <input type="text" name="name" id="name" ng-model="vm.user.name" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$invalid}">
+                                    <label for="lastname">{{'LABELS.LASTNAME' | translate}}</label>
+                                    <input type="text" name="lastname" id="lastname" ng-model="vm.user.lastname" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.password.$touched || vm.cUserForm.password.$dirty) && vm.cUserForm.password.$invalid}">
+                                    <label for="password">{{'LABELS.PASSWORD' | translate}}</label>
+                                    <input type="text" name="password" id="password" ng-model="vm.user.password" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.cUserForm.password.$touched || vm.cUserForm.password.$dirty) && vm.cUserForm.password.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
+                                <div id="active">
+
+                                    <label class="radio-inline"><input type="radio" name="active" checked>{{'LABELS.YES'
+                                        |
+                                        translate}}</label>
+                                    <label class="radio-inline"><input type="radio" name="active">{{'LABELS.NO' |
+                                        translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

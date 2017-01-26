@@ -11,6 +11,7 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
             });
         }else {
             LoginService.validateUser(vm.credentials).then(()=>{
+                console.log('asd');
                 vm.showLoginError = false;
                 vm.credentials = {};
                 $state.go('home');

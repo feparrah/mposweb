@@ -1,0 +1,178 @@
+<div class="container-fluid">
+    <div class="row">
+        <form name="vm.admUserForm" novalidate>
+            <div class="col-md-5 col-md-offset-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Usuarios Adm</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.user.$touched || vm.admUserForm.user.$dirty) && vm.admUserForm.user.$invalid}">
+                            <label for="user">{{'LABELS.USER' | translate}}</label>
+                            <input type="text" name="user" id="user" ng-model="vm.user.id" required ng-maxlength="50" class="form-control">
+                            <div ng-messages="(vm.admUserForm.user.$touched || vm.admUserForm.user.$dirty) && vm.admUserForm.user.$error" class="help-block">
+                                <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:50}'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary btn150px">Consultar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.doctype.$touched || vm.admUserForm.doctype.$dirty) && vm.admUserForm.doctype.$invalid}">
+                                    <label for="doctype">{{'LABELS.DOC_TYPE' | translate}}</label>
+                                    <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.doctype" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="1">NIT</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.docnumber.$touched || vm.admUserForm.docnumber.$dirty) && vm.admUserForm.docnumber.$invalid}">
+                                    <label for="docnumber">{{'LABELS.DOC_NUMBER' | translate}}</label>
+                                    <input type="text" name="docnumber" id="docnumber" ng-model="vm.user.docnumber" class="form-control" required ng-maxlength="12" ng-pattern="/^\d*$/">
+                                    <div ng-messages="(vm.admUserForm.docnumber.$touched || vm.admUserForm.docnumber.$dirty) && vm.admUserForm.docnumber.$error" class="help-block">
+                                        <div ng-message="pattern">{{'ERRORS.ONLY_NUMBERS_FIELD' | translate}}</div>
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:12}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.email.$touched || vm.admUserForm.email.$dirty) && vm.admUserForm.email.$invalid}">
+                                    <label for="email">{{'LABELS.EMAIL' | translate}}</label>
+                                    <input type="text" name="email" id="email" ng-model="vm.user.email" class="form-control" required ng-maxlength="60" ng-pattern="/^.+@[a-z0-9]+\.[a-z\.]{1,}$/i">
+                                    <div ng-messages="(vm.admUserForm.email.$touched || vm.admUserForm.email.$dirty) && vm.admUserForm.email.$error" class="help-block">
+                                        <div ng-message="pattern">{{'ERRORS.EMAIL_FIELD' | translate}}</div>
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:60}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.name.$touched || vm.admUserForm.name.$dirty) && vm.admUserForm.name.$invalid}">
+                                    <label for="name">{{'LABELS.NAME' | translate}}</label>
+                                    <input type="text" name="name" id="name" ng-model="vm.user.name" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.name.$touched || vm.admUserForm.name.$dirty) && vm.admUserForm.name.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.lastname.$touched || vm.admUserForm.lastname.$dirty) && vm.admUserForm.lastname.$invalid}">
+                                    <label for="lastname">{{'LABELS.LASTNAME' | translate}}</label>
+                                    <input type="text" name="lastname" id="lastname" ng-model="vm.user.lastname" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.lastname.$touched || vm.admUserForm.lastname.$dirty) && vm.admUserForm.lastname.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.password.$touched || vm.admUserForm.password.$dirty) && vm.admUserForm.password.$invalid}">
+                                    <label for="password">{{'LABELS.PASSWORD' | translate}}</label>
+                                    <input type="text" name="password" id="password" ng-model="vm.user.password" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.password.$touched || vm.admUserForm.password.$dirty) && vm.admUserForm.password.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
+                                <div id="active">
+
+                                    <label class="radio-inline"><input type="radio" name="active" checked>{{'LABELS.YES'
+                                        |
+                                        translate}}</label>
+                                    <label class="radio-inline"><input type="radio" name="active">{{'LABELS.NO' |
+                                        translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="access" class="control-label">{{'Permisos de acceso' | translate}}</label>
+                                <div id="access">
+                                    <div>
+                                    <label class="radio-inline"><input type="radio" name="acomerces" checked>{{'LABELS.YES'
+                                        |
+                                        translate}}</label>
+                                    <label class="radio-inline"><input type="radio" name="acomerces">{{'LABELS.NO' |
+                                        translate}}</label>
+                                    <label class="control-label">{{'Comercios NIT' | translate}}</label>
+                                    </div>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" name="aucode" checked>{{'LABELS.YES'
+                                            |
+                                            translate}}</label>
+                                        <label class="radio-inline"><input type="radio" name="aucode">{{'LABELS.NO' |
+                                            translate}}</label>
+                                        <label class="control-label">{{'Comercios Codigo Unico' | translate}}</label>
+                                    </div>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" name="aterminals" checked>{{'LABELS.YES'
+                                            |
+                                            translate}}</label>
+                                        <label class="radio-inline"><input type="radio" name="aterminals">{{'LABELS.NO' |
+                                            translate}}</label>
+                                        <label class="control-label">{{'Terminales' | translate}}</label>
+                                    </div>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" name="aausers" checked>{{'LABELS.YES'
+                                            |
+                                            translate}}</label>
+                                        <label class="radio-inline"><input type="radio" name="aausers">{{'LABELS.NO' |
+                                            translate}}</label>
+                                        <label class="control-label">{{'Usuarios Adm' | translate}}</label>
+                                    </div>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" name="acusers" checked>{{'LABELS.YES'
+                                            |
+                                            translate}}</label>
+                                        <label class="radio-inline"><input type="radio" name="acusers">{{'LABELS.NO' |
+                                            translate}}</label>
+                                        <label class="control-label">{{'Usuarios Comercio' | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
