@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const https = require('https');
+const http = require('http');
 const queryString = require('querystring');
 
 const app = express();
@@ -38,6 +39,37 @@ app.route('/api/token')
         request.end();
 
 
+    });
+
+app.route('/api/users/:userId')
+    .get((req, res) => {
+        let options = {
+            rejectUnauthorized:false,
+            host : 'support.netcom.com.co',
+            port : 8343,
+            path : '/netcom/merchant/api/users/' + req.params.userId,
+            method : 'GET',
+            headers : {
+                'Content-Type' : 'text/html',
+                'Authorization' : req.get('Authorization')
+            }
+        };
+
+        let request = https.request(options, response => {
+            response.on('data', bufferData => {
+                res.json(JSON.parse(bufferData.toString()));
+            });
+            response.on('error', error =>{
+                console.log(error);
+                res.json(error);
+            });
+        });
+
+        request.on('error', error =>{
+            console.log(error);
+            res.json(error);
+        });
+        request.end();
     });
 app.route('/api/sessions')
     .post((req, res) => {
@@ -76,6 +108,7 @@ app.route('/api/:userid/sessions')
             path : '/netcom/merchant/api/users/'+ req.params.userid +'/sessions',
             method : 'DELETE',
             headers : {
+                'Content-Type' : 'text/html',
                 'Authorization' : req.get('Authorization')
             }
         };

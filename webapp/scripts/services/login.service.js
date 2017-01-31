@@ -1,9 +1,16 @@
-let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $http, $base64) {
+let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $http, $base64, restApis) {
+    let restUrls;
+
+    restApis.getApis().then(apis => {
+       restUrls = apis;
+    });
+
+
     let getOauth2Token = function () {
         let def = $q.defer();
         let data = 'client_id=CFGkFIU4JKhy9cjG6HnoctOg8aQa&client_secret=Tek1bEVvPXLNb7AI5fkVVbhToEMa&username=admin&password=admin&grant_type=password';
         $http({
-            url: '/api/token',
+            url: restUrls.token,
             method: 'POST',
             data: data,
             headers: {
@@ -21,7 +28,7 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
         let def = $q.defer();
         getOauth2Token().then(tokenData => {
             $http({
-                url: 'api/' + $base64.encode(userId) + '/sessions',
+                url: restUrls.logout.replace('{userId}', $base64.encode(userId)),
                 method: 'DELETE',
                 headers : {
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
@@ -53,8 +60,9 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                 version: $base64.encode('4.2.2'),
                 ipAddress: $base64.encode('192.168.215.239')
             };
+
             $http({
-                url: '/api/sessions',
+                url: restUrls.login,
                 method: 'POST',
                 data: payload,
                 headers: {
@@ -62,23 +70,50 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                 }
             }).then(response => {
+
+
                 let userInfo = {
                     descriptionState: $base64.decode(response.data.descriptionState),
                     encryptionKey: $base64.decode(response.data.encryptionKey),
                     loginState: $base64.decode(response.data.loginState),
                     userId: $base64.decode(response.data.userId)
                 };
-
-
                 if (userInfo.loginState === '1') {
-                    $rootScope.currentUser = userInfo;
-                    $cookieStore.put('jd_session', userInfo);
-                    def.resolve();
+                    $http({
+                        url : restUrls.userInfo.replace('{userId}', response.data.userId),
+                        method : 'GET',
+                        headers : {
+                            'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                        }
+                    }).then( userInfoResponse => {
+                        console.log(userInfoResponse.data);
+                        let uInfo = {
+                            address : $base64.decode(userInfoResponse.data.address),
+                            cellPhone : $base64.decode(userInfoResponse.data.cellPhone),
+                            email : $base64.decode(userInfoResponse.data.email),
+                            firstName : $base64.decode(userInfoResponse.data.firstName),
+                            lastConnection : $base64.decode(userInfoResponse.data.lastConnection),
+                            lastName : $base64.decode(userInfoResponse.data.lastName),
+                            login : $base64.decode(userInfoResponse.data.login),
+                            phone : $base64.decode(userInfoResponse.data.phone),
+                            responseCode : $base64.decode(userInfoResponse.data.responseCode),
+                            responseMessage : $base64.decode(userInfoResponse.data.responseMessage),
+                            secondName : $base64.decode(userInfoResponse.data.secondName),
+                            surname : $base64.decode(userInfoResponse.data.surname),
+                            userId: $base64.decode(response.data.userId)
+
+                        };
+                        $rootScope.currentUser = uInfo;
+                        $cookieStore.put('jd_session', uInfo);
+                        def.resolve();
+                        console.log(uInfo);
+                    });
+
+
+
                 } else {
                     def.reject(userInfo.descriptionState)
                 }
-
-
             });
 
         });
@@ -90,5 +125,5 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
 };
 
 
-loginService.$inject = ['$resource', '$log', '$q', '$rootScope', '$cookieStore', '$http', '$base64'];
+loginService.$inject = ['$resource', '$log', '$q', '$rootScope', '$cookieStore', '$http', '$base64', 'restApis'];
 angular.module('mpos').service('LoginService', loginService);

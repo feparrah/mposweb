@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <form name="vm.cUserForm" novalidate>
-            <div class="col-md-5 col-md-offset-4">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Usuarios Comercio</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.user.$touched || vm.cUserForm.user.$dirty) && vm.cUserForm.user.$invalid}">
                             <label for="user">{{'LABELS.USER' | translate}}</label>
                             <input type="text" name="user" id="user" ng-model="vm.user.id" required ng-maxlength="50" class="form-control">
@@ -18,19 +18,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-primary btn150px">Consultar</button>
+                    <div class="col-md-5">
+                        <button type="button" class="btn btn-primary btn150px pull-right">Consultar</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.doctype.$touched || vm.cUserForm.doctype.$dirty) && vm.cUserForm.doctype.$invalid}">
                                     <label for="doctype">{{'LABELS.DOC_TYPE' | translate}}</label>
                                     <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.doctype" required>
                                         <option value="">Seleccione</option>
-                                        <option value="1">NIT</option>
+                                        <option value="1">CEDULA DE CIUDADANIA</option>
+                                        <option value="2">NIT</option>
+                                        <option value="3">PASAPORTE</option>
+                                        <option value="4">CEDULA EXTRANJERIA</option>
                                     </select>
                                 </div>
                             </div>
@@ -55,6 +58,8 @@
                                     <select name="usertype" id="usertype" class="form-control" ng-model="vm.user.usertype" required>
                                         <option value="">Seleccione</option>
                                         <option value="1">NIT</option>
+                                        <option value="2">Código Único</option>
+                                        <option value="3">Terminal</option>
                                     </select>
                                 </div>
                             </div>
@@ -129,16 +134,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Guardar</button>
                             </div>
                         </div>
                     </div>

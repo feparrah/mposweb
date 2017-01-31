@@ -9,7 +9,7 @@
                         <input type="text" name="username" id="username" class="form-control" required ng-model="vm.credentials.username">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                         <div ng-messages="vm.loginForm.username.$touched && vm.loginForm.username.$error" class="help-block">
-                            <div ng-message="required">{{'REQUIRED_FIELD_ERROR' | translate}}</div>
+                            <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </div>
                     <div class="form-group has-feedback" ng-class="{'has-error' : vm.loginForm.password.$touched && vm.loginForm.password.$invalid}">
@@ -17,11 +17,11 @@
                         <input type="password" name="password" id="password" class="form-control" required ng-model="vm.credentials.password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <div ng-messages="vm.loginForm.password.$touched && vm.loginForm.password.$error" class="help-block">
-                            <div ng-message="required">{{'REQUIRED_FIELD_ERROR' | translate}}</div>
+                            <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </div>
-                    <div><a ui-sref="recoverypass">Olvido su contraseña??</a> </div>
                     <button type="submit" class="btn btn-primary btn-sm pull-right">Entrar &nbsp; <span class="glyphicon glyphicon-log-in"></span></button>
+                    <div><a ui-sref="recoverypass">{{'FORGOT_PASSWORD' | translate}}</a> </div>
                 </form>
             </div>
                     <div ng-if="vm.showLoginError" class="alert alert-danger" ng-bind="vm.loginError"></div>

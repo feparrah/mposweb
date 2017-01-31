@@ -1,19 +1,38 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="form-group">
-                <label for="currentpass">Contraseña Actual</label>
-                <input type="password" name="currentpass" id="currentpass" ng-model="vm.cp.currentpass" class="form-control">
+            <form name="vm.changePasswordForm" novalidate>
+
+            <div class="form-group" ng-class="{'has-error' : (vm.changePasswordForm.currentpass.$touched || vm.changePasswordForm.currentpass.$dirty) && vm.changePasswordForm.currentpass.$invalid}">
+                <label for="currentpass">{{'LABELS.CURRENT_PASSWORD' | translate}}</label>
+                <input type="password" name="currentpass" id="currentpass" ng-model="vm.cp.currentpass" class="form-control" required ng-maxlength="20">
+                <div ng-messages="(vm.changePasswordForm.currentpass.$touched || vm.changePasswordForm.currentpass.$dirty) && vm.changePasswordForm.currentpass.$error" class="help-block">
+                    <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                    <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{max:20}'}}</div>
+                    <div ng-message="minlength">{{'ERRORS.MIN_LENGTH_FIELD' | translate : '{min:8}'}}</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="newpass">Contraseña Actual</label>
-                <input type="password" name="newpass" id="newpass" ng-model="vm.cp.newpass" class="form-control">
+            <div class="form-group" ng-class="{'has-error' : (vm.changePasswordForm.newpass.$touched || vm.changePasswordForm.newpass.$dirty) && vm.changePasswordForm.newpass.$invalid}">
+                <label for="newpass">{{'LABELS.NEW_PASSWORD' | translate}}</label>
+                <input type="password" name="newpass" id="newpass" ng-model="vm.cp.newpass" class="form-control" required ng-minlength="8" ng-maxlength="20">
+                <div ng-messages="(vm.changePasswordForm.newpass.$touched || vm.changePasswordForm.newpass.$dirty) && vm.changePasswordForm.newpass.$error" class="help-block">
+                    <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                    <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{max:20}'}}</div>
+                    <div ng-message="minlength">{{'ERRORS.MIN_LENGTH_FIELD' | translate : '{min:8}'}}</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="newpass2">Contraseña Actual</label>
-                <input type="password" name="newpass2" id="newpass2" ng-model="vm.cp.newpass2" class="form-control">
+            <div class="form-group" ng-class="{'has-error' : (vm.changePasswordForm.newpass2.$touched || vm.changePasswordForm.newpass2.$dirty) && vm.changePasswordForm.newpass2.$invalid}">
+                <label for="newpass2">{{'LABELS.REPEAT_NEW_PASSWORD' | translate}}</label>
+                <input type="password" name="newpass2" id="newpass2" ng-model="vm.cp.newpass2" class="form-control" required ng-minlength="8" ng-maxlength="20">
+                <div ng-messages="(vm.changePasswordForm.newpass2.$touched || vm.changePasswordForm.newpass2.$dirty) && vm.changePasswordForm.newpass2.$error" class="help-block">
+                    <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                    <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{max:20}'}}</div>
+                    <div ng-message="minlength">{{'ERRORS.MIN_LENGTH_FIELD' | translate : '{min:8}'}}</div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary btn-sm pull-right">Enviar &nbsp; <span class="glyphicon glyphicon-send"></span></button>
+
+            </form>
         </div>
     </div>
 </div>

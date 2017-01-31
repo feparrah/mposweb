@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <form name="vm.admUserForm" novalidate>
-            <div class="col-md-5 col-md-offset-4">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Usuarios Adm</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.user.$touched || vm.admUserForm.user.$dirty) && vm.admUserForm.user.$invalid}">
                             <label for="user">{{'LABELS.USER' | translate}}</label>
                             <input type="text" name="user" id="user" ng-model="vm.user.id" required ng-maxlength="50" class="form-control">
@@ -18,19 +18,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <button type="button" class="btn btn-primary btn150px">Consultar</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.doctype.$touched || vm.admUserForm.doctype.$dirty) && vm.admUserForm.doctype.$invalid}">
                                     <label for="doctype">{{'LABELS.DOC_TYPE' | translate}}</label>
                                     <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.doctype" required>
                                         <option value="">Seleccione</option>
-                                        <option value="1">NIT</option>
+                                        <option value="1">CEDULA DE CIUDADANIA</option>
+                                        <option value="2">NIT</option>
+                                        <option value="3">PASAPORTE</option>
+                                        <option value="4">CEDULA EXTRANJERIA</option>
                                     </select>
                                 </div>
                             </div>
@@ -121,7 +124,7 @@
                                         translate}}</label>
                                     <label class="radio-inline"><input type="radio" name="acomerces">{{'LABELS.NO' |
                                         translate}}</label>
-                                    <label class="control-label">{{'Comercios NIT' | translate}}</label>
+                                    <label class="control-label">{{'SECTIONS.COMERCES' | translate}}</label>
                                     </div>
                                     <div>
                                         <label class="radio-inline"><input type="radio" name="aucode" checked>{{'LABELS.YES'
@@ -129,7 +132,7 @@
                                             translate}}</label>
                                         <label class="radio-inline"><input type="radio" name="aucode">{{'LABELS.NO' |
                                             translate}}</label>
-                                        <label class="control-label">{{'Comercios Codigo Unico' | translate}}</label>
+                                        <label class="control-label">{{'SECTIONS.UNIQUE_CODE' | translate}}</label>
                                     </div>
                                     <div>
                                         <label class="radio-inline"><input type="radio" name="aterminals" checked>{{'LABELS.YES'
@@ -137,7 +140,7 @@
                                             translate}}</label>
                                         <label class="radio-inline"><input type="radio" name="aterminals">{{'LABELS.NO' |
                                             translate}}</label>
-                                        <label class="control-label">{{'Terminales' | translate}}</label>
+                                        <label class="control-label">{{'SECTIONS.TERMINALS' | translate}}</label>
                                     </div>
                                     <div>
                                         <label class="radio-inline"><input type="radio" name="aausers" checked>{{'LABELS.YES'
@@ -145,7 +148,7 @@
                                             translate}}</label>
                                         <label class="radio-inline"><input type="radio" name="aausers">{{'LABELS.NO' |
                                             translate}}</label>
-                                        <label class="control-label">{{'Usuarios Adm' | translate}}</label>
+                                        <label class="control-label">{{'SECTIONS.ADMIN_USERS' | translate}}</label>
                                     </div>
                                     <div>
                                         <label class="radio-inline"><input type="radio" name="acusers" checked>{{'LABELS.YES'
@@ -153,21 +156,15 @@
                                             translate}}</label>
                                         <label class="radio-inline"><input type="radio" name="acusers">{{'LABELS.NO' |
                                             translate}}</label>
-                                        <label class="control-label">{{'Usuarios Comercio' | translate}}</label>
+                                        <label class="control-label">{{'SECTIONS.COMERCE_USERS' | translate}}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Agregar</button>
                             </div>
                         </div>
                     </div>

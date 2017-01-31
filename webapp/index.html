@@ -9,33 +9,41 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <body ng-controller="mainCtrl as vm">
-<div class="container-fluid">
+<div>
     <div class="row" style="padding: 5px;">
         <div class="col-md-5">
             <img src="images/Banner-PortalWebMerchant.png" alt="">
         </div>
 
-        <div class="col-md-4 col-md-offset-3">
+        <div class="col-md-3 col-md-offset-4">
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
-                <div class="row">
-                    <div class="col-xs-6 col-md-5"><b>Bienvenido</b></div>
-                    <div class="col-xs-6 col-md-7">{{vm.currentUser.userId}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-md-5"><b>Fecha Ultimo Ingreso</b></div>
-                    <div class="col-xs-6 col-md-7"></div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-md-5"><b>Ip Ultimo Ingreso</b></div>
-                    <div class="col-xs-6 col-md-7"></div>
-                </div>
-                <div class="row">
+                <div class="dropdown pull-right">
+                    <button class="btn dropdown-toggle logInfoButton" type="button" data-toggle="dropdown" style="width: 200px;">
+                        <i class="glyphicon glyphicon-user"></i> {{vm.currentUser.login}}
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" style="width: 100%;">
+                        <li>
+                            <div style="overflow: hidden">
 
-                    <div class="col-xs-12">
-                        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-top: 5px;"
-                                ng-click="vm.logout()">Salir
-                            &nbsp; &nbsp;<span class="glyphicon glyphicon-log-out"></span></button>
-                    </div>
+                                <div class="col-md-12">
+                                    <b>Fecha último ingreso :</b>
+                                </div>
+                                <div class="col-md-12">
+                                    {{vm.currentUser.lastConnection}}
+                                </div>
+                                <div class="col-md-12">
+                                    <b>Dirección IP :</b>
+                                </div>
+                                <div class="col-md-12">
+                                    {{ vm.currentIpAddress}}
+                                </div>
+                            </div>
+                        </li>
+                        <hr>
+                        <li><a ui-sref="changepass"><i class="glyphicon glyphicon-pencil"></i>&nbsp; Cambiar Contraseña</a></li>
+
+                        <li><a ng-click="vm.logout()" style="cursor: pointer"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Cerrar Sesion</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -60,15 +68,12 @@
         <div class="collapse navbar-collapse" id="mainMenu">
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="comerces">Comercios NIT</a></li>
-                    <li><a ui-sref="ucode">Codigo Unico</a></li>
-                    <li><a ui-sref="terminals">Terminales</a></li>
-                    <li><a ui-sref="ausers">Usuarios Adm</a></li>
-                    <li><a ui-sref="cusers">Usuarios Comercios </a></li>
-                    <li><a href="#">Consultas</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a ui-sref="changepass">Cambiar Contraseña</a></li>
+                    <li><a ui-sref="comerces">{{'SECTIONS.COMERCES' | translate}}</a></li>
+                    <li><a ui-sref="ucode">{{'SECTIONS.UNIQUE_CODE' | translate}}</a></li>
+                    <li><a ui-sref="terminals">{{'SECTIONS.TERMINALS' | translate}}</a></li>
+                    <li><a ui-sref="ausers">{{'SECTIONS.ADMIN_USERS' | translate}}</a></li>
+                    <li><a ui-sref="cusers">{{'SECTIONS.COMERCE_USERS' | translate}}</a></li>
+                    <li><a href="#">{{'SECTIONS.QUERIES' | translate}}</a></li>
                 </ul>
             </div>
         </div>
@@ -94,6 +99,7 @@
 <script src="lib/angular-base64/angular-base64.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/services/login.service.js"></script>
+<script src="scripts/services/restApisService.js"></script>
 <script src="scripts/controllers/main.controller.js"></script>
 <script src="scripts/controllers/comerces.controller.js"></script>
 <script src="scripts/controllers/unique-code.controller.js"></script>

@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <form name="vm.comerceForm" novalidate>
-            <div class="col-md-5 col-md-offset-4">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Comercios - Codigo Unico</h2>
+                        <h2>Comercios - Código Único</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div class="form-group" ng-class="{'has-error' : (vm.comerceForm.ucode.$touched || vm.comerceForm.ucode.$dirty) && vm.comerceForm.ucode.$invalid}">
                             <label for="ucode">{{'LABELS.UNIQUE_CODE' | translate}}</label>
                             <input type="text" name="ucode" id="ucode" ng-maxlength="10" required
@@ -20,12 +20,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <button type="button" class="btn btn-primary btn150px">Consultar</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
@@ -166,16 +166,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Guardar</button>
                             </div>
                         </div>
                     </div>

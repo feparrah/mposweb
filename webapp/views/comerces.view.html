@@ -1,15 +1,14 @@
 <div class="container-fluid">
-
     <div class="row">
         <form name="vm.comercesForm" novalidate>
-            <div class="col-md-5 col-md-offset-4">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Comercios NIT</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div class="form-group"
                              ng-class="{'has-error' : (vm.comercesForm.nit.$touched || vm.comercesForm.nit.$dirty) && vm.comercesForm.nit.$invalid}">
                             <label for="nit">{{'LABELS.NIT' | translate}}</label>
@@ -29,7 +28,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
@@ -140,16 +139,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Guardar</button>
                             </div>
                         </div>
                     </div>

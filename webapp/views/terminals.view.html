@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <form name="vm.terminalForm" novalidate>
-            <div class="col-md-5 col-md-offset-4">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Terminales</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div class="form-group" ng-class="{'has-error' : (vm.terminalForm.terminal.$touched || vm.terminalForm.terminal.$dirty) && vm.terminalForm.terminal.$invalid}">
                             <label for="terminal">{{'LABELS.TERMINAL' | translate}}</label>
                             <input type="text" name="terminal" id="terminal" ng-model="vm.terminal.id" ng-maxlength="8" required class="form-control">
@@ -18,12 +18,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <button type="button" class="btn btn-primary btn150px">Consultar</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.terminalForm.ucode.$touched || vm.terminalForm.ucode.$dirty) && vm.terminalForm.ucode.$invalid}">
@@ -142,21 +142,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px" ng-click="vm.sendComerce()">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Modificar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px">Liberar Licencia</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Agregar</button>
+                                <button type="button" class="btn btn-default btn150px pull-right" style="margin-right: 10px">Liberar Licencia</button>
                             </div>
                         </div>
                     </div>

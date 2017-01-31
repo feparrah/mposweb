@@ -21,14 +21,14 @@
 }
 
 .navbar-default {
-    background-color: #627e96 !important;
-    border-top: 3px solid #1c496f;
-    border-bottom: 4px solid #1c496f;
+    background-color: #4d799c !important;
+    border-top: 2px solid #4b6c88;
+    border-bottom: 2px solid #4b6c88;
 }
 
 .navbar-default a {
     color: white !important;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 3px black;
     font-size: 16px;
 }
 
@@ -58,6 +58,13 @@
 
 .hiddenElement {
     opacity: 0;
+}
+
+.logInfoButton{
+    background-color: #f7f7f7 !important;
+    border-color: #dedede !important;
+    border-radius: 0;
+    color: black;
 }
 
 @media (min-width: 992px) {

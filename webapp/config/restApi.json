@@ -1,0 +1,6 @@
+{
+  "token" : "/api/token",
+  "login" : "/api/sessions",
+  "logout" : "/api/{userId}/sessions",
+  "userInfo" : "/api/users/{userId}"
+}

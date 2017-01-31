@@ -1,6 +1,11 @@
 
-angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $scope , $rootScope) {
+angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $scope , $rootScope , $http) {
     let vm = this;
+    $http.get('https://jsonip.com/').then(response =>{
+        vm.currentIpAddress = response.data.ip;
+    });
+
+
     vm.showLoginError = false;
     vm.logedUser = false;
 
@@ -11,7 +16,6 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
             });
         }else {
             LoginService.validateUser(vm.credentials).then(()=>{
-                console.log('asd');
                 vm.showLoginError = false;
                 vm.credentials = {};
                 $state.go('home');
@@ -23,7 +27,7 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
     };
 
     vm.logout = ()=>{
-
+        console.log(vm.currentUser.userId);
         LoginService.logout(vm.currentUser.userId).then(()=>{
             vm.logedUser = false;
             vm.currentUser = undefined;
