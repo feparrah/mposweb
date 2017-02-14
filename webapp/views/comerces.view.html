@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <form name="vm.comercesForm" novalidate>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Comercios NIT</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="form-group"
                              ng-class="{'has-error' : (vm.comercesForm.nit.$touched || vm.comercesForm.nit.$dirty) && vm.comercesForm.nit.$invalid}">
                             <label for="nit">{{'LABELS.NIT' | translate}}</label>
@@ -23,12 +23,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-primary btn150px">Consultar</button>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn150px btn-sm"><i class="glyphicon glyphicon-search"></i> Consultar</button>
+                        <button ng-click="vm.showAllComereces()" class="btn btn-primary btn150px btn-sm"><i class="glyphicon glyphicon-list"></i>&nbsp; Ver todos</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
@@ -142,7 +143,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">Guardar</button>
+                                <button type="button" class="btn btn-primary btn150px pull-right btn-sm" ng-click="vm.sendComerce()">Guardar</button>
                             </div>
                         </div>
                     </div>

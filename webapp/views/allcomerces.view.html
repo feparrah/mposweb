@@ -1,0 +1,75 @@
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "dom" : '<"top"f>rt<"bottom"p><"clear">',
+            "language" : {
+                "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h2>Comercios</h2>
+        <a class="btn btn-default btn-md" ui-sref="comerces.form">
+            <i class="glyphicon glyphicon-circle-arrow-left"></i>
+            Volver
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+
+        <div>
+            <table id="myTable" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>NIT</th>
+                    <th>Razon Social</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Pais</th>
+                    <th>Nombre de contacto</th>
+                    <th>Telefono contacto</th>
+                    <th>Activo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1234567678</td>
+                    <td>Ejemplo</td>
+                    <td>Calle 123</td>
+                    <td>Bogota</td>
+                    <td>Pais</td>
+                    <td>Andres F Gonzalez</td>
+                    <td>12378935</td>
+                    <td>SI</td>
+                </tr>
+                <tr>
+                    <td>1234567678</td>
+                    <td>Ejemplo</td>
+                    <td>Calle 123</td>
+                    <td>Bogota</td>
+                    <td>Pais</td>
+                    <td>Andres F Gonzalez</td>
+                    <td>12378935</td>
+                    <td>SI</td>
+                </tr>
+                <tr>
+                    <td>1234567678</td>
+                    <td>Ejemplo</td>
+                    <td>Calle 123</td>
+                    <td>Bogota</td>
+                    <td>Pais</td>
+                    <td>Andres F Gonzalez</td>
+                    <td>12378935</td>
+                    <td>SI</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

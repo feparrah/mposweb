@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>MPOS</title>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="styles/main.css">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -68,12 +69,13 @@
         <div class="collapse navbar-collapse" id="mainMenu">
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="comerces">{{'SECTIONS.COMERCES' | translate}}</a></li>
-                    <li><a ui-sref="ucode">{{'SECTIONS.UNIQUE_CODE' | translate}}</a></li>
-                    <li><a ui-sref="terminals">{{'SECTIONS.TERMINALS' | translate}}</a></li>
-                    <li><a ui-sref="ausers">{{'SECTIONS.ADMIN_USERS' | translate}}</a></li>
+                    <li><a ui-sref="comerces.form">{{'SECTIONS.COMERCES' | translate}}</a></li>
+                    <li><a ui-sref="ucode.form">{{'SECTIONS.UNIQUE_CODE' | translate}}</a></li>
+                    <li><a ui-sref="terminals.form">{{'SECTIONS.TERMINALS' | translate}}</a></li>
+                    <li><a ui-sref="ausers.form">{{'SECTIONS.ADMIN_USERS' | translate}}</a></li>
                     <li><a ui-sref="cusers">{{'SECTIONS.COMERCE_USERS' | translate}}</a></li>
-                    <li><a href="#">{{'SECTIONS.QUERIES' | translate}}</a></li>
+                    <li><a ui-sref="businesstypes">{{'Tipos Negocio' | translate}}</a></li>
+                    <li><a ui-sref="queries">{{'SECTIONS.QUERIES' | translate}}</a></li>
                 </ul>
             </div>
         </div>
@@ -88,6 +90,8 @@
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="lib/angular/angular.min.js"></script>
 <script src="lib/angular-cookies/angular-cookies.min.js"></script>
 <script src="lib/angular-resource/angular-resource.min.js"></script>
@@ -106,5 +110,6 @@
 <script src="scripts/controllers/terminals.controller.js"></script>
 <script src="scripts/controllers/ausers.controller.js"></script>
 <script src="scripts/controllers/cusers.controller.js"></script>
+<script src="scripts/controllers/queries.controller.js"></script>
 </body>
 </html>

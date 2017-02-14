@@ -1,0 +1,78 @@
+<script>
+    $(document).ready(function () {
+        $('#ucodelisttable').DataTable({
+            "dom" : '<"top"f>rt<"bottom"p><"clear">',
+            "language" : {
+                "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h2>Comercios - Código Único</h2>
+        <a class="btn btn-default btn-md" ui-sref="ucode.form">
+            <i class="glyphicon glyphicon-circle-arrow-left"></i>
+            Volver
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <table id="ucodelisttable" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>{{'LABELS.UNIQUE_CODE' | translate}}</th>
+                    <th>{{'LABELS.NIT' | translate}}</th>
+                    <th>{{'LABELS.COMERCE_NAME' | translate}}</th>
+                    <th>{{'LABELS.EMAIL' | translate}}</th>
+                    <th>{{'LABELS.ADDRESS' | translate}}</th>
+                    <th>{{'LABELS.CITY' | translate}}</th>
+                    <th>{{'LABELS.COUNTRY' | translate}}</th>
+                    <th>{{'LABELS.CONTACT_NAME' | translate}}</th>
+                    <th>{{'LABELS.CONTACT_PHONE' | translate}}</th>
+                    <th>{{'LABELS.ACTIVE' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>123123123</td>
+                    <td>1237898</td>
+                    <td>Comercio</td>
+                    <td>lecko.col@gmail.com</td>
+                    <td>calle 123</td>
+                    <td>Bogota</td>
+                    <td>Colombia</td>
+                    <td>Andres Gonzalez</td>
+                    <td>3204864976</td>
+                    <td>SI</td>
+                </tr>
+                <tr>
+                    <td>123123123</td>
+                    <td>1237898</td>
+                    <td>Comercio</td>
+                    <td>lecko.col@gmail.com</td>
+                    <td>calle 123</td>
+                    <td>Bogota</td>
+                    <td>Colombia</td>
+                    <td>Andres Gonzalez</td>
+                    <td>3204864976</td>
+                    <td>SI</td>
+                </tr>
+                <tr>
+                    <td>123123123</td>
+                    <td>1237898</td>
+                    <td>Comercio</td>
+                    <td>lecko.col@gmail.com</td>
+                    <td>calle 123</td>
+                    <td>Bogota</td>
+                    <td>Colombia</td>
+                    <td>Andres Gonzalez</td>
+                    <td>3204864976</td>
+                    <td>SI</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

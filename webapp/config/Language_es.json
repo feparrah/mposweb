@@ -33,6 +33,7 @@
     "NO" : "No",
     "UNIQUE_CODE" : "Código Único",
     "COMERCE_NAME" : "Nombre Comercio",
+    "BUSINESS_TYPE" : "Tipo Negocio",
     "EMAIL" : "Correo Electrónico",
     "TERMINAL" : "Terminal",
     "MOBILE_NUMBER" : "Número Movil",

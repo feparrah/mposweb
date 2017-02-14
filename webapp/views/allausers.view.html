@@ -1,0 +1,45 @@
+<script>
+    $(document).ready(function () {
+        $('#auserstable').DataTable({
+            "dom": '<"top"f>rt<"bottom"p><"clear">',
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h2>Usuarios Adm</h2>
+        <a class="btn btn-default btn-md" ui-sref="ausers.form">
+            <i class="glyphicon glyphicon-circle-arrow-left"></i>
+            Volver
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <table id="auserstable" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>{{'LABELS.USER' | translate}}</th>
+                    <th>{{'LABELS.DOC_NUMBER' | translate}}</th>
+                    <th>{{'LABELS.EMAIL' | translate}}</th>
+                    <th>{{'LABELS.NAME' | translate}}</th>
+                    <th>{{'LABELS.LASTNAME' | translate}}</th>
+                    <th>{{'LABELS.ACTIVE' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Andres</td>
+                <td>1024485016</td>
+                <td>lecko.col@gmail.com</td>
+                <td>Andres</td>
+                <td>Gonzalez</td>
+                <td>SI</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

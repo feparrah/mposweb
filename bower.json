@@ -17,6 +17,8 @@
     "angular-translate-loader-static-files": "^2.13.1",
     "angular-messages": "^1.6.1",
     "angular-base64": "^2.0.5",
-    "js-sha512": "^0.2.2"
+    "js-sha512": "^0.2.2",
+    "datatables.net": "^2.1.1",
+    "datatables.net-bs": "^2.1.1"
   }
 }
