@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.queriesForm" novalidate>
+        <form name="vm.queriesForm" novalidate ng-submit="vm.test()">
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
@@ -95,7 +95,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.test()">
+                                <button type="submit" class="btn btn-primary btn150px pull-right" ng-click="vm.test()">
                                     <i class="glyphicon glyphicon-search"></i>
                                     Consultar</button>
                                 <button type="button" class="btn btn-default btn150px pull-right" style="margin-right: 10px; width: 150px;">

@@ -24,13 +24,13 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
         return def.promise;
     };
 
-    this.changePassword = (userId, currentPassword, newPassword) => {
+    this.changePassword = (userId, currentPassword, newPassword, confirmedPassword) => {
         let def = $q.defer();
         getOauth2Token().then(tokenData => {
             let payload = {
                 currentPassword : $base64.encode(sha512(currentPassword)),
                 newPassword : $base64.encode(sha512(newPassword)),
-                confirmPassword : $base64.encode(sha512(newPassword))
+                confirmPassword : $base64.encode(sha512(confirmedPassword))
             };
             $http({
                 url : restUrls.changePassword.replace('{userId}', $base64.encode(userId)),

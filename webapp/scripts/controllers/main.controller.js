@@ -5,6 +5,8 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
         vm.currentIpAddress = response.data.ip;
     });
 
+     console.log(vm.sss);
+
 
     vm.showLoginError = false;
     vm.logedUser = false;
@@ -19,7 +21,7 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
                 field.$setTouched();
             });
         }else {
-            LoginService.changePassword(vm.currentUser.userId, vm.cp.currentpass, vm.cp.newpass)
+            LoginService.changePassword(vm.currentUser.userId, vm.cp.currentpass, vm.cp.newpass, vm.cp.newpass2)
                 .then(success => {
                     vm.changePassResponse = success;
                     vm.showChangePassError = false;
@@ -31,6 +33,9 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
                     vm.showChangePassError = true;
                 });
             vm.cp = {};
+            vm.changePasswordForm.$setUntouched();
+            vm.changePasswordForm.$setPristine();
+
         }
     };
 
@@ -52,12 +57,13 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
     };
 
     vm.logout = ()=>{
-        console.log(vm.currentUser.userId);
         LoginService.logout(vm.currentUser.userId).then(()=>{
             vm.logedUser = false;
             vm.currentUser = undefined;
             $state.go('login')
         });
+        vm.showChangePassSuccess = false;
+        vm.showChangePassError = true;
     };
 
     $rootScope.$watch('currentUser', (newVal , oldVal)=> {

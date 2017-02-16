@@ -1,5 +1,10 @@
 angular.module('mpos').controller('comercesCtrl', function ($state) {
     let vm = this;
+    vm.showConectionError = false;
+    vm.test = ()=> {
+        console.log('asdsd');
+        vm.showConectionError = true;
+    };
 
     vm.sendComerce = () => {
         if (vm.comercesForm.$invalid) {
@@ -14,8 +19,5 @@ angular.module('mpos').controller('comercesCtrl', function ($state) {
         $state.transitionTo('comerces.list');
     };
 
-    vm.showConectionError = false;
-    vm.test = ()=> {
-        vm.showConectionError = true;
-    }
+
 });

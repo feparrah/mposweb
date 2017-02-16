@@ -12,7 +12,12 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
 
     $stateProvider.state('changepass', {
         url: '/cambiopass',
-        templateUrl: 'views/changepass.view.html'
+        templateUrl: 'views/changepass.view.html',
+        resolve: {
+            ssss: function () {
+                return 'asd';
+            }
+        }
     });
 
     $stateProvider.state('home', {
@@ -62,15 +67,15 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
 
     $stateProvider.state('ausers', {
         url: '/usuariosadm',
-        template : '<div ui-view/>',
+        template: '<div ui-view/>',
         controller: 'adminUsersCtrl',
         controllerAs: 'vm'
-    }).state('ausers.form',{
-        url : '/formulario',
+    }).state('ausers.form', {
+        url: '/formulario',
         templateUrl: 'views/ausers.view.html'
-    }).state('ausers.list',{
-        url : '/lista',
-        templateUrl : 'views/allausers.view.html'
+    }).state('ausers.list', {
+        url: '/lista',
+        templateUrl: 'views/allausers.view.html'
     });
 
     $stateProvider.state('cusers', {
@@ -83,16 +88,16 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
     $stateProvider.state('queries', {
         url: '/consultas',
         templateUrl: 'views/queries.view.html',
-        controller : 'queriesCtrl',
-        controllerAs : 'vm'
+        controller: 'queriesCtrl',
+        controllerAs: 'vm'
 
     });
 
     $stateProvider.state('businesstypes', {
         url: '/tiposnegocio',
         templateUrl: 'views/businesstype.view.html',
-        controller : 'businessTypeCtrl',
-        controllerAs : 'vm'
+        controller: 'businessTypeCtrl',
+        controllerAs: 'vm'
     });
 
 
