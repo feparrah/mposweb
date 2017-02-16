@@ -24,6 +24,37 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
         return def.promise;
     };
 
+    this.changePassword = (userId, currentPassword, newPassword) => {
+        let def = $q.defer();
+        getOauth2Token().then(tokenData => {
+            let payload = {
+                currentPassword : $base64.encode(sha512(currentPassword)),
+                newPassword : $base64.encode(sha512(newPassword)),
+                confirmPassword : $base64.encode(sha512(newPassword))
+            };
+            $http({
+                url : restUrls.changePassword.replace('{userId}', $base64.encode(userId)),
+                method: 'POST',
+                data : payload,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                }
+            }).then(response => {
+                let res =  {
+                    responseCode : $base64.decode(response.data.responseCode),
+                    responseMessage: $base64.decode(response.data.responseMessage)
+                };
+                if(res.responseCode === '1'){
+                    def.resolve(res.responseMessage);
+                }else {
+                    def.reject(res.responseMessage);
+                }
+            });
+        });
+        return def.promise;
+    };
+
     this.logout = userId => {
         let def = $q.defer();
         getOauth2Token().then(tokenData => {

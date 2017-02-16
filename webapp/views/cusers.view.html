@@ -1,10 +1,15 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.cUserForm" novalidate>
+        <form name="vm.cUserForm" novalidate ng-submit="vm.test()">
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Usuarios Comercio</h2>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.showConectionError">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger">Error de conexión</div>
                     </div>
                 </div>
                 <div class="row">
@@ -19,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <button type="button" class="btn btn-primary btn150px pull-right">Consultar</button>
+                        <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.test()">Consultar</button>
                     </div>
                 </div>
                 <div class="row">

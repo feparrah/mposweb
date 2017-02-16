@@ -1,5 +1,6 @@
 angular.module('mpos').controller('comercesCtrl', function ($state) {
     let vm = this;
+
     vm.sendComerce = () => {
         if (vm.comercesForm.$invalid) {
             angular.forEach(vm.comercesForm.$error.required, field => {
@@ -11,5 +12,10 @@ angular.module('mpos').controller('comercesCtrl', function ($state) {
 
     vm.showAllComereces = () => {
         $state.transitionTo('comerces.list');
+    };
+
+    vm.showConectionError = false;
+    vm.test = ()=> {
+        vm.showConectionError = true;
     }
 });

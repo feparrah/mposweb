@@ -4,4 +4,9 @@ angular.module('mpos').controller('uniqueCodeCtrl', function ($state) {
     vm.showAllUcodes = () => {
        $state.transitionTo('ucode.list');
     }
+
+    vm.showConectionError = false;
+    vm.test = ()=> {
+        vm.showConectionError = true;
+    }
 });

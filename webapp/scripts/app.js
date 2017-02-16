@@ -90,7 +90,9 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
 
     $stateProvider.state('businesstypes', {
         url: '/tiposnegocio',
-        templateUrl: 'views/businesstype.view.html'
+        templateUrl: 'views/businesstype.view.html',
+        controller : 'businessTypeCtrl',
+        controllerAs : 'vm'
     });
 
 

@@ -7,19 +7,24 @@
                         <h2>Consulta de Transacciones</h2>
                     </div>
                 </div>
+                <div class="row" ng-if="vm.showConectionError">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger">Error de conexión</div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
+                        <label for="active" class="control-label">{{'Tipo de Reporte' | translate}}</label>
                         <div id="active">
                             <div>
 
-                            <label class="radio-inline"><input type="radio" name="active" checked>{{'Últimas 10 transacciones'
+                            <label class="radio-inline"><input type="radio" id="last10Transactions" name="last10Transactions" checked="checked">{{'Últimas 10 transacciones'
                                 |
                                 translate}}</label>
                             </div>
                             <div>
 
-                            <label class="radio-inline"><input type="radio" name="active">{{'Rango de fechas' |
+                            <label class="radio-inline"><input type="radio" id="dateRange" name="dateRange">{{'Rango de fechas' |
                                 translate}}</label>
                             </div>
                         </div>
@@ -28,6 +33,24 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="startDate" class="control-label">Desde:</label>
+                                <div id="startDate" data-date="{{vm.currentTime | date : 'dd/MM/yyyy'}}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endDate" class="control-label">Hasta:</label>
+                                <div id="endDate" data-date="{{vm.currentTime | date : 'dd/MM/yyyy'}}"></div>
+                            </div>
+                                <script>
+                                    $('#startDate').datepicker({
+                                        language : 'es'
+                                    });
+                                    $('#endDate').datepicker({
+                                        language : 'es'
+                                    });
+                                </script>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
@@ -72,7 +95,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.sendComerce()">
+                                <button type="button" class="btn btn-primary btn150px pull-right" ng-click="vm.test()">
                                     <i class="glyphicon glyphicon-search"></i>
                                     Consultar</button>
                                 <button type="button" class="btn btn-default btn150px pull-right" style="margin-right: 10px; width: 150px;">

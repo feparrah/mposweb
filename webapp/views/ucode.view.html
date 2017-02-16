@@ -1,10 +1,15 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.comerceForm" novalidate>
+        <form name="vm.comerceForm" novalidate ng-submit="vm.test()">
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Comercios - Código Único</h2>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.showConectionError">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger">Error de conexión</div>
                     </div>
                 </div>
                 <div class="row">
@@ -23,7 +28,7 @@
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary btn150px btn-sm"><i
-                                class="glyphicon glyphicon-search"></i> Consultar
+                                class="glyphicon glyphicon-search" ng-click="vm.test()"></i> Consultar
                         </button>
                         <button ng-click="vm.showAllUcodes()" class="btn btn-primary btn150px btn-sm"><i
                                 class="glyphicon glyphicon-list"></i>&nbsp; Ver todos
@@ -44,8 +49,7 @@
                                          class="help-block">
                                         <div ng-message="required">{{ 'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="pattern">{{'ERRORS.ONLY_NUMBERS_FIELD' | translate}}</div>
-                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{ max :
-                                            12}'}}
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{max:12}'}}
                                         </div>
                                     </div>
                                 </div>

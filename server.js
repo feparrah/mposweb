@@ -99,6 +99,35 @@ app.route('/api/sessions')
         request.end();
     });
 
+app.route('/api/:userid/passwords')
+    .post((req, res) => {
+        let options = {
+            rejectUnauthorized:false,
+            host : 'support.netcom.com.co',
+            port : 8343,
+            path : '/netcom/merchant/api/users/'+ req.params.userid +'/passwords',
+            method : 'POST',
+            headers : {
+                'Content-Type' : req.get('Content-Type'),
+                'Authorization' : req.get('Authorization')
+            }
+        };
+
+        let request = https.request(options, response => {
+            response.on('data', bufferData=>{
+                res.json(JSON.parse(bufferData.toString()));
+            });
+            response.on('error', error => {
+                console.log(error);
+            });
+        });
+
+        request.write(JSON.stringify(req.body));
+        request.end();
+
+
+    });
+
 app.route('/api/:userid/sessions')
     .delete((req , res) => {
         let options = {

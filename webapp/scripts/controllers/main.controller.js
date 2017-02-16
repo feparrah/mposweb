@@ -8,6 +8,31 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
 
     vm.showLoginError = false;
     vm.logedUser = false;
+    vm.showChangePassError = false;
+    vm.showChangePassSuccess = false;
+
+
+    vm.changePass = ()=>{
+        if(vm.changePasswordForm.$invalid){
+            angular.forEach(vm.changePasswordForm.$error.required, field => {
+                field.$setDirty();
+                field.$setTouched();
+            });
+        }else {
+            LoginService.changePassword(vm.currentUser.userId, vm.cp.currentpass, vm.cp.newpass)
+                .then(success => {
+                    vm.changePassResponse = success;
+                    vm.showChangePassError = false;
+                    vm.showChangePassSuccess = true;
+                })
+                .catch(error => {
+                    vm.changePassResponse = error;
+                    vm.showChangePassSuccess = false;
+                    vm.showChangePassError = true;
+                });
+            vm.cp = {};
+        }
+    };
 
     vm.login = ()=>{
         if(vm.loginForm.$invalid){
