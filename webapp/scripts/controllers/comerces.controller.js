@@ -1,21 +1,21 @@
 angular.module('mpos').controller('comercesCtrl', function ($state) {
-    let vm = this;
+    var vm = this;
     vm.showConectionError = false;
-    vm.test = ()=> {
+    vm.test = function(){
         console.log('asdsd');
         vm.showConectionError = true;
     };
 
-    vm.sendComerce = () => {
+    vm.sendComerce = function(){
         if (vm.comercesForm.$invalid) {
-            angular.forEach(vm.comercesForm.$error.required, field => {
+            angular.forEach(vm.comercesForm.$error.required, function(field) {
                 field.$setDirty();
                 field.$setTouched();
             });
         }
     };
 
-    vm.showAllComereces = () => {
+    vm.showAllComereces = function(){
         $state.transitionTo('comerces.list');
     };
 

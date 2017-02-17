@@ -1,7 +1,7 @@
 angular.module('mpos').controller('comerceUsersCtrl', function () {
-    let vm = this;
+    var vm = this;
     vm.showConectionError = false;
-    vm.test = ()=> {
+    vm.test = function(){
         vm.showConectionError = true;
     }
 });

@@ -1,14 +1,14 @@
-let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $http, $base64, restApis) {
-    let restUrls;
+var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $http, $base64, restApis) {
+    var restUrls;
 
-    restApis.getApis().then(apis => {
+    restApis.getApis().then(function(apis){
        restUrls = apis;
     });
 
 
-    let getOauth2Token = function () {
-        let def = $q.defer();
-        let data = 'client_id=CFGkFIU4JKhy9cjG6HnoctOg8aQa&client_secret=Tek1bEVvPXLNb7AI5fkVVbhToEMa&username=admin&password=admin&grant_type=password';
+    var getOauth2Token = function () {
+        var def = $q.defer();
+        var data = 'client_id=CFGkFIU4JKhy9cjG6HnoctOg8aQa&client_secret=Tek1bEVvPXLNb7AI5fkVVbhToEMa&username=admin&password=admin&grant_type=password';
         $http({
             url: restUrls.token,
             method: 'POST',
@@ -16,18 +16,18 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
-        }).then(response => {
+        }).then(function(response){
             def.resolve(response.data);
-        }).catch(error => {
+        }).catch(function(error){
             def.reject(error);
         });
         return def.promise;
     };
 
-    this.changePassword = (userId, currentPassword, newPassword, confirmedPassword) => {
-        let def = $q.defer();
-        getOauth2Token().then(tokenData => {
-            let payload = {
+    this.changePassword = function(userId, currentPassword, newPassword, confirmedPassword){
+        var def = $q.defer();
+        getOauth2Token().then(function(tokenData){
+            var payload = {
                 currentPassword : $base64.encode(sha512(currentPassword)),
                 newPassword : $base64.encode(sha512(newPassword)),
                 confirmPassword : $base64.encode(sha512(confirmedPassword))
@@ -40,8 +40,8 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                     'Content-Type': 'application/json',
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                 }
-            }).then(response => {
-                let res =  {
+            }).then(function(response){
+                var res =  {
                     responseCode : $base64.decode(response.data.responseCode),
                     responseMessage: $base64.decode(response.data.responseMessage)
                 };
@@ -55,21 +55,21 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
         return def.promise;
     };
 
-    this.logout = userId => {
-        let def = $q.defer();
-        getOauth2Token().then(tokenData => {
+    this.logout = function(userId){
+        var def = $q.defer();
+        getOauth2Token().then(function(tokenData){
             $http({
                 url: restUrls.logout.replace('{userId}', $base64.encode(userId)),
                 method: 'DELETE',
                 headers : {
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                 }
-            }).then(response => {
+            }).then(function(response){
                 console.log(response);
                 $rootScope.currentUser = undefined;
                 $cookieStore.remove('jd_session');
                 def.resolve();
-            }).catch(error => {
+            }).catch(function(error){
                 console.log(error);
                 def.reject();
             });
@@ -77,13 +77,13 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
         return def.promise;
     };
 
-    this.validateUser = credentials => {
-        let def = $q.defer();
+    this.validateUser = function(credentials){
+        var def = $q.defer();
 
 
-        getOauth2Token().then(tokenData => {
+        getOauth2Token().then(function(tokenData){
             console.log(tokenData.access_token);
-            let payload = {
+            var payload = {
                 user: $base64.encode(credentials.username),
                 password: $base64.encode(sha512(credentials.password)),
                 channel: $base64.encode('1'),
@@ -100,10 +100,10 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                     'Content-Type': 'application/json',
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                 }
-            }).then(response => {
+            }).then(function(response){
 
 
-                let userInfo = {
+                var userInfo = {
                     descriptionState: $base64.decode(response.data.descriptionState),
                     encryptionKey: $base64.decode(response.data.encryptionKey),
                     loginState: $base64.decode(response.data.loginState),
@@ -116,9 +116,9 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                         headers : {
                             'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                         }
-                    }).then( userInfoResponse => {
+                    }).then( function(userInfoResponse) {
                         console.log(userInfoResponse.data);
-                        let uInfo = {
+                        var uInfo = {
                             address : $base64.decode(userInfoResponse.data.address),
                             cellPhone : $base64.decode(userInfoResponse.data.cellPhone),
                             email : $base64.decode(userInfoResponse.data.email),
@@ -137,11 +137,7 @@ let loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                         $rootScope.currentUser = uInfo;
                         $cookieStore.put('jd_session', uInfo);
                         def.resolve();
-                        console.log(uInfo);
                     });
-
-
-
                 } else {
                     def.reject(userInfo.descriptionState)
                 }

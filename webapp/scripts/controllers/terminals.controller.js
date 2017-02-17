@@ -1,12 +1,12 @@
 angular.module('mpos').controller('terminalsCtrl', function ($state) {
-    let vm = this;
+    var vm = this;
 
-    vm.showAllTerminals = ()=>{
+    vm.showAllTerminals = function(){
         $state.transitionTo('terminals.list');
     }
 
     vm.showConectionError = false;
-    vm.test = ()=> {
+    vm.test = function() {
         vm.showConectionError = true;
     }
 });

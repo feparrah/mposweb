@@ -1,5 +1,5 @@
 angular.module('mpos', ['ui.router', 'pascalprecht.translate', 'ngMessages', 'ngResource', 'ngCookies', 'base64']);
-let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
+function config($stateProvider, $urlRouterProvider, $translateProvider) {
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: 'views/login.view.html'
@@ -12,12 +12,7 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
 
     $stateProvider.state('changepass', {
         url: '/cambiopass',
-        templateUrl: 'views/changepass.view.html',
-        resolve: {
-            ssss: function () {
-                return 'asd';
-            }
-        }
+        templateUrl: 'views/changepass.view.html'
     });
 
     $stateProvider.state('home', {
@@ -110,7 +105,8 @@ let config = ($stateProvider, $urlRouterProvider, $translateProvider) => {
     $translateProvider.useSanitizeValueStrategy('escapeParameters');
     $translateProvider.preferredLanguage('es');
 };
-let run = ($rootScope, $cookieStore, $state) => {
+function run($rootScope, $cookieStore, $state){
+    console.log('andrés');
     $rootScope.currentUser = $cookieStore.get('jd_session');
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams, options) {

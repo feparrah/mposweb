@@ -1,12 +1,12 @@
 angular.module('mpos').controller('uniqueCodeCtrl', function ($state) {
-    let vm = this;
+    var vm = this;
 
-    vm.showAllUcodes = () => {
+    vm.showAllUcodes = function() {
        $state.transitionTo('ucode.list');
     }
 
     vm.showConectionError = false;
-    vm.test = ()=> {
+    vm.test = function(){
         vm.showConectionError = true;
     }
 });

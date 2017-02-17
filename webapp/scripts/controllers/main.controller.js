@@ -1,7 +1,7 @@
 
 angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $scope , $rootScope , $http) {
-    let vm = this;
-    $http.get('https://jsonip.com/').then(response =>{
+    var vm = this;
+    $http.get('https://jsonip.com/').then(function(response){
         vm.currentIpAddress = response.data.ip;
     });
 
@@ -14,20 +14,20 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
     vm.showChangePassSuccess = false;
 
 
-    vm.changePass = ()=>{
+    vm.changePass = function(){
         if(vm.changePasswordForm.$invalid){
-            angular.forEach(vm.changePasswordForm.$error.required, field => {
+            angular.forEach(vm.changePasswordForm.$error.required, function(field){
                 field.$setDirty();
                 field.$setTouched();
             });
         }else {
             LoginService.changePassword(vm.currentUser.userId, vm.cp.currentpass, vm.cp.newpass, vm.cp.newpass2)
-                .then(success => {
+                .then(function(success){
                     vm.changePassResponse = success;
                     vm.showChangePassError = false;
                     vm.showChangePassSuccess = true;
                 })
-                .catch(error => {
+                .catch(function(error){
                     vm.changePassResponse = error;
                     vm.showChangePassSuccess = false;
                     vm.showChangePassError = true;
@@ -39,25 +39,25 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
         }
     };
 
-    vm.login = ()=>{
+    vm.login = function(){
         if(vm.loginForm.$invalid){
-            angular.forEach(vm.loginForm.$error.required, (field)=>{
+            angular.forEach(vm.loginForm.$error.required, function(field){
                 field.$setTouched();
             });
         }else {
-            LoginService.validateUser(vm.credentials).then(()=>{
+            LoginService.validateUser(vm.credentials).then(function(){
                 vm.showLoginError = false;
                 vm.credentials = {};
                 $state.go('home');
-            }).catch(error => {
+            }).catch(function(error){
                 vm.showLoginError = true;
                 vm.loginError = error;
             });
         }
     };
 
-    vm.logout = ()=>{
-        LoginService.logout(vm.currentUser.userId).then(()=>{
+    vm.logout = function(){
+        LoginService.logout(vm.currentUser.userId).then(function(){
             vm.logedUser = false;
             vm.currentUser = undefined;
             $state.go('login')
@@ -66,7 +66,7 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state , $
         vm.showChangePassError = true;
     };
 
-    $rootScope.$watch('currentUser', (newVal , oldVal)=> {
+    $rootScope.$watch('currentUser', function(newVal , oldVal){
         if(typeof newVal !== 'undefined'){
             vm.logedUser = true;
             vm.currentUser = newVal;
