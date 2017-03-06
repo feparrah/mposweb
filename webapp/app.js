@@ -1,0 +1,1 @@
+angular.module('mpos', ['ui.router', 'pascalprecht.translate', 'ngMessages', 'ngResource', 'ngCookies', 'base64']);

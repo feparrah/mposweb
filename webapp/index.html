@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <title>MPOS</title>
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="assets/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
 
     <meta name="viewport"
@@ -16,7 +16,7 @@
 <div>
     <div class="row" style="padding: 5px;">
         <div class="col-md-5">
-            <img src="images/Banner-PortalWebMerchant.png" alt="">
+            <img src="assets/img/Banner-PortalWebMerchant.png" alt="">
         </div>
 
         <div class="col-md-3 col-md-offset-4">
@@ -72,13 +72,13 @@
         <div class="collapse navbar-collapse" id="mainMenu">
             <div ng-if="vm.logedUser" class="hiddenElement" ng-class="{'visibleElement' : vm.logedUser}">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="comerces.form">{{'SECTIONS.COMERCES' | translate}}</a></li>
-                    <li><a ui-sref="ucode.form">{{'SECTIONS.UNIQUE_CODE' | translate}}</a></li>
-                    <li><a ui-sref="terminals.form">{{'SECTIONS.TERMINALS' | translate}}</a></li>
-                    <li><a ui-sref="ausers.form">{{'SECTIONS.ADMIN_USERS' | translate}}</a></li>
-                    <li><a ui-sref="cusers">{{'SECTIONS.COMERCE_USERS' | translate}}</a></li>
-                    <li><a ui-sref="businesstypes">{{'Tipos Negocio' | translate}}</a></li>
-                    <li><a ui-sref="queries">{{'SECTIONS.QUERIES' | translate}}</a></li>
+                    <li><a ui-sref="comerces.form" ng-bind="'SECTIONS.COMERCES' | translate"></a></li>
+                    <li><a ui-sref="ucode.form" ng-bind="'SECTIONS.UNIQUE_CODE' | translate"></a></li>
+                    <li><a ui-sref="terminals.form" ng-bind="'SECTIONS.TERMINALS' | translate"></a></li>
+                    <li><a ui-sref="ausers.form" ng-bind="'SECTIONS.ADMIN_USERS' | translate"></a></li>
+                    <li><a ui-sref="cusers" ng-bind="'SECTIONS.COMERCE_USERS' | translate"></a></li>
+                    <li><a ui-sref="businesstypes" ng-bind="'Tipos Negocio' | translate"></a></li>
+                    <li><a ui-sref="queries" ng-bind="'SECTIONS.QUERIES' | translate"></a></li>
                 </ul>
             </div>
         </div>
@@ -91,31 +91,38 @@
     <img src="images/Footer-PortalWebMerchant.png" alt="">
 </div>-->
 
-<script src="lib/jquery/dist/jquery.min.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
-<script src="lib/angular/angular.min.js"></script>
-<script src="lib/angular-cookies/angular-cookies.min.js"></script>
-<script src="lib/angular-resource/angular-resource.min.js"></script>
-<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="lib/angular-translate/angular-translate.min.js"></script>
-<script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-<script src="lib/angular-messages/angular-messages.min.js"></script>
-<script src="lib/js-sha512/build/sha512.min.js"></script>
-<script src="lib/angular-base64/angular-base64.js"></script>
-<script src="scripts/app.js"></script>
-<script src="scripts/services/login.service.js"></script>
-<script src="scripts/services/restApisService.js"></script>
-<script src="scripts/controllers/main.controller.js"></script>
-<script src="scripts/controllers/comerces.controller.js"></script>
-<script src="scripts/controllers/unique-code.controller.js"></script>
-<script src="scripts/controllers/terminals.controller.js"></script>
-<script src="scripts/controllers/ausers.controller.js"></script>
-<script src="scripts/controllers/cusers.controller.js"></script>
-<script src="scripts/controllers/queries.controller.js"></script>
-<script src="scripts/controllers/business-type.controller.js"></script>
+<script src="assets/lib/jquery/dist/jquery.min.js"></script>
+<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="assets/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="assets/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
+<script src="assets/lib/angular/angular.min.js"></script>
+<script src="assets/lib/angular-cookies/angular-cookies.min.js"></script>
+<script src="assets/lib/angular-resource/angular-resource.min.js"></script>
+<script src="assets/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="assets/lib/angular-translate/angular-translate.min.js"></script>
+<script src="assets/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="assets/lib/angular-messages/angular-messages.min.js"></script>
+<script src="assets/lib/js-sha512/build/sha512.min.js"></script>
+<script src="assets/lib/angular-base64/angular-base64.js"></script>
+<script src="app.js"></script>
+<script src="app.config.js"></script>
+<script src="app.run.js"></script>
+<script src="components/authentication/login.service.js"></script>
+<script src="config/environmentProvider.js"></script>
+<script src="components/authentication/oauth2.service.js"></script>
+<script src="shared/restApisService.js"></script>
+<script src="components/home/main.controller.js"></script>
+<script src="components/comerces/comerces.controller.js"></script>
+<script src="components/comerces/comerces.service.js"></script>
+<script src="components/unique-codes/ucodes.controller.js"></script>
+<script src="components/unique-codes/ucodes.service.js"></script>
+<script src="components/terminals/terminals.controller.js"></script>
+<script src="components/terminals/terminals.service.js"></script>
+<script src="components/admin-users/ausers.controller.js"></script>
+<script src="components/comerce-users/cusers.controller.js"></script>
+<script src="components/queries/queries.controller.js"></script>
+<script src="components/business-types/business-type.controller.js"></script>
 </body>
 </html>

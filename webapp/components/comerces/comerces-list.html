@@ -1,0 +1,70 @@
+<div ng-init="vm.showAllComerces()">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Comercios</h2>
+            <a class="btn btn-default btn-md" ui-sref="comerces.form">
+                <i class="glyphicon glyphicon-circle-arrow-left"></i>
+                Volver
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+
+            <div>
+                <table id="myTable" class="table table-bordered table-striped" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>NIT</th>
+                        <th>Razon Social</th>
+                        <th>Dirección</th>
+                        <th>Ciudad</th>
+                        <th>Pais</th>
+                        <th>Nombre de contacto</th>
+                        <th>Telefono contacto</th>
+                        <th>Activo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="comerce in vm.comercesList">
+                        <td ng-bind="comerce.nit"></td>
+                        <td ng-bind="comerce.businessName"></td>
+                        <td ng-bind="comerce.address"></td>
+                        <td ng-bind="comerce.city"></td>
+                        <td ng-bind="comerce.country"></td>
+                        <td ng-bind="comerce.contactName"></td>
+                        <td ng-bind="comerce.telephoneContact"></td>
+                        <td ng-bind="comerce.stateId == '1' ? 'LABELS.YES' : 'LABELS.NO' | translate"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation" class="pull-right">
+                    <ul class="pagination">
+                        <li ng-class="{'disabled' : vm.page == vm.pages[0]}"
+                            ng-click="vm.page == vm.pages[0]||vm.previousPage()" style="cursor: pointer">
+                            <a aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li ng-repeat="n in vm.pages" ng-class="{'active' : vm.page == n}">
+                            <a style="cursor: pointer"
+                               ng-click="vm.getPageList(n)">{{n}}</a>
+                        </li>
+
+                        <li ng-class="{'disabled' : vm.page == vm.pages[vm.pages.length - 1]}"
+                            ng-click="vm.page == vm.pages[vm.pages.length - 1]||vm.nextPage()" style="cursor: pointer;">
+                            <a aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>

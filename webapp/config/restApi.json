@@ -1,7 +1,35 @@
 {
-  "token" : "/api/token",
-  "login" : "/api/sessions",
-  "logout" : "/api/{userId}/sessions",
-  "userInfo" : "/api/users/{userId}",
-  "changePassword" : "/api/{userId}/passwords"
+  "token": "/api/token",
+  "login": "/api/sessions",
+  "logout": "/api/{userId}/sessions",
+  "userInfo": "/api/users/{userId}",
+  "changePassword": "/api/{userId}/passwords",
+  "dev": {
+    "token": "/api/token",
+    "login": "/api/sessions",
+    "logout": "/api/{userId}/sessions",
+    "userInfo": "/api/users/{userId}",
+    "changePassword": "/api/{userId}/passwords",
+    "comerces" : {
+      "findComerce" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}",
+      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/pages",
+      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/?page={page}",
+      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits",
+      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}"
+    },
+    "ucodes" : {
+      "findUcode" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{id}",
+      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/pages",
+      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/?page={pageNumber}",
+      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes",
+      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{ucId}"
+    },
+    "terminals" : {
+      "findTerminal" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{id}",
+      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/pages",
+      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/?page={pageNumber}",
+      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals",
+      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{terminalId}"
+    }
+  }
 }

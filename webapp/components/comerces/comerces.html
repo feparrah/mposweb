@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.comercesForm" novalidate ng-submit="vm.test()">
+        <form name="vm.comercesForm" novalidate ng-submit="vm.sendComerce()">
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
@@ -18,7 +18,7 @@
                              ng-class="{'has-error' : (vm.comercesForm.nit.$touched || vm.comercesForm.nit.$dirty) && vm.comercesForm.nit.$invalid}">
                             <label for="nit">{{'LABELS.NIT' | translate}}</label>
                             <input type="text" name="nit" id="nit" class="form-control" ng-model="vm.comerce.nit"
-                                   ng-pattern="/^\d*$/" required ng-maxlength="12">
+                                   ng-pattern="/^\d*$/" required ng-maxlength="12" ng-disabled="vm.disableNit">
                             <div ng-messages="(vm.comercesForm.nit.$touched || vm.comercesForm.nit.$dirty) && vm.comercesForm.nit.$error"
                                  class="help-block">
                                 <div ng-message="required">{{ 'ERRORS.REQUIRED_FIELD' | translate}}</div>
@@ -29,8 +29,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn150px btn-sm" ng-click="vm.test()"><i class="glyphicon glyphicon-search" ></i> Consultar</button>
-                        <button ng-click="vm.showAllComereces()" class="btn btn-primary btn150px btn-sm"><i class="glyphicon glyphicon-list"></i>&nbsp; Ver todos</button>
+                        <button type="button" class="btn btn-primary btn150px btn-sm"
+                                ng-click="vm.findComerce(vm.comerce.nit)"><i class="glyphicon glyphicon-search"></i>
+                            Consultar
+                        </button>
+                        <a class="btn btn-primary btn150px btn-sm" ui-sref="comerces.list"><i
+                                class="glyphicon glyphicon-list"></i>&nbsp; Ver todos</a>
                     </div>
                 </div>
                 <div class="row">
@@ -38,11 +42,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
-                                     ng-class="{'has-error' : (vm.comercesForm.bussinesName.$touched || vm.comercesForm.bussinesName.$dirty) && vm.comercesForm.bussinesName.$invalid}">
-                                    <label for="bussinesName">{{'LABELS.BUSSINES_NAME' | translate}}</label>
-                                    <input type="text" name="bussinesName" id="bussinesName" class="form-control"
-                                           required ng-maxlength="50" ng-model="vm.comerce.bussinesName">
-                                    <div ng-messages="(vm.comercesForm.bussinesName.$touched || vm.comercesForm.bussinesName.$dirty) && vm.comercesForm.bussinesName.$error"
+                                     ng-class="{'has-error' : (vm.comercesForm.businessName.$touched || vm.comercesForm.businessName.$dirty) && vm.comercesForm.businessName.$invalid}">
+                                    <label for="businessName">{{'LABELS.BUSSINES_NAME' | translate}}</label>
+                                    <input type="text" name="businessName" id="businessName" class="form-control"
+                                           required ng-maxlength="50" ng-model="vm.comerce.businessName"
+                                           ng-disabled="vm.disableBusinessName">
+                                    <div ng-messages="(vm.comercesForm.businessName.$touched || vm.comercesForm.businessName.$dirty) && vm.comercesForm.businessName.$error"
                                          class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -58,7 +63,8 @@
                                      ng-class="{'has-error': (vm.comercesForm.address.$touched || vm.comercesForm.address.$dirty) && vm.comercesForm.address.$invalid}">
                                     <label for="address">{{'LABELS.ADDRESS' | translate}}</label>
                                     <input type="text" name="address" id="address" class="form-control"
-                                           ng-maxlength="50" ng-model="vm.comerce.address">
+                                           ng-maxlength="50" ng-model="vm.comerce.address"
+                                           ng-disabled="vm.disableAddress">
                                     <div ng-messages="(vm.comercesForm.address.$touched || vm.comercesForm.address.$dirty) && vm.comercesForm.address.$error"
                                          class="help-block">
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -74,7 +80,7 @@
                                      ng-class="{'has-error' : (vm.comercesForm.city.$touched || vm.comercesForm.city.$dirty) && vm.comercesForm.city.$invalid}">
                                     <label for="city">{{'LABELS.CITY' | translate}}</label>
                                     <input type="text" name="city" id="city" class="form-control" ng-maxlength="20"
-                                           ng-model="vm.comerce.city">
+                                           ng-model="vm.comerce.city" ng-disabled="vm.disableCity">
                                     <div ng-messages="(vm.comercesForm.city.$touched || vm.comercesForm.city.$dirty) && vm.comercesForm.city.$error"
                                          class="help-block">
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -90,7 +96,8 @@
                                      ng-class="{'has-error' : (vm.comercesForm.country.$touched || vm.comercesForm.country.$dirty) && vm.comercesForm.country.$invalid}">
                                     <label for="country">{{'LABELS.COUNTRY' | translate}}</label>
                                     <input type="text" name="country" id="country" class="form-control"
-                                           ng-maxlength="20" ng-model="vm.comerce.country">
+                                           ng-maxlength="20" ng-model="vm.comerce.country"
+                                           ng-disabled="vm.diableCountry">
                                     <div ng-messages="(vm.comercesForm.country.$touched || vm.comercesForm.country.$dirty) && vm.comercesForm.country.$error"
                                          class="help-block">
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -106,7 +113,8 @@
                                      ng-class="{'has-error' : (vm.comercesForm.contactName.$touched || vm.comercesForm.contactName.$dirty) && vm.comercesForm.contactName.$invalid}">
                                     <label for="contactName">{{'LABELS.CONTACT_NAME' | translate}}</label>
                                     <input type="text" name="contactName" id="contactName" class="form-control"
-                                           ng-maxlength="50" ng-model="vm.comerce.contactName">
+                                           ng-maxlength="50" ng-model="vm.comerce.contactName"
+                                           ng-disabled="vm.disableContactName">
                                     <div ng-messages="(vm.comercesForm.contactName.$touched || vm.comercesForm.contactName.$dirty) && vm.comercesForm.contactName.$error"
                                          class="help-block">
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -122,7 +130,8 @@
                                      ng-class="{'has-error': (vm.comercesForm.contactPhone.$touched || vm.comercesForm.contactPhone.$dirty) && vm.comercesForm.contactPhone.$invalid}">
                                     <label for="contactPhone">{{'LABELS.CONTACT_PHONE' | translate}}</label>
                                     <input type="text" name="contactPhone" id="contactPhone" class="form-control"
-                                           ng-maxlength="20" ng-model="vm.comerce.contactPhone">
+                                           ng-maxlength="20" ng-model="vm.comerce.telephoneContact"
+                                           ng-disabled="vm.disableTelephoneContact">
                                     <div ng-messages="(vm.comercesForm.contactPhone.$touched || vm.comercesForm.contactPhone.$dirty) && vm.comercesForm.contactPhone.$error"
                                          class="help-block">
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate :
@@ -137,10 +146,10 @@
                                 <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
                                 <div id="active">
 
-                                    <label class="radio-inline"><input type="radio" name="active" checked>{{'LABELS.YES'
+                                    <label class="radio-inline"><input type="radio" name="active" ng-model="vm.comerce.stateId" value="1">{{'LABELS.YES'
                                         |
                                         translate}}</label>
-                                    <label class="radio-inline"><input type="radio" name="active">{{'LABELS.NO' |
+                                    <label class="radio-inline"><input type="radio" name="active" ng-model="vm.comerce.stateId" value="2"> {{'LABELS.NO' |
                                         translate}}</label>
                                 </div>
                             </div>
@@ -148,7 +157,8 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn150px pull-right btn-sm">Guardar</button>
+                                <button type="submit" class="btn btn-primary btn150px pull-right btn-sm">Guardar
+                                </button>
                             </div>
                         </div>
                     </div>

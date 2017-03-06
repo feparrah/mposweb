@@ -17,9 +17,9 @@ app.use(express.static(path.join(__dirname, 'webapp')));
 
 
 app.route('/api/token')
-    .post((req, res) => {
-        let payload = queryString.stringify(req.body);
-        let options = {
+    .post(function(req, res) {
+        var payload = queryString.stringify(req.body);
+        var options = {
             rejectUnauthorized: false,
             host: 'support.netcom.com.co',
             port: 9544,
@@ -30,8 +30,8 @@ app.route('/api/token')
                 'Content-Length': payload.length
             }
         };
-        let request = https.request(options, response => {
-            response.on('data', data => {
+        var request = https.request(options, function(response) {
+            response.on('data', function(data) {
                 res.json(JSON.parse(data.toString()));
             });
         });
@@ -42,8 +42,8 @@ app.route('/api/token')
     });
 
 app.route('/api/users/:userId')
-    .get((req, res) => {
-        let options = {
+    .get(function(req, res) {
+        var options = {
             rejectUnauthorized:false,
             host : 'support.netcom.com.co',
             port : 8343,
@@ -55,25 +55,25 @@ app.route('/api/users/:userId')
             }
         };
 
-        let request = https.request(options, response => {
-            response.on('data', bufferData => {
+        var request = https.request(options, function(response) {
+            response.on('data', function(bufferData) {
                 res.json(JSON.parse(bufferData.toString()));
             });
-            response.on('error', error =>{
+            response.on('error', function(error){
                 console.log(error);
                 res.json(error);
             });
         });
 
-        request.on('error', error =>{
+        request.on('error', function(error){
             console.log(error);
             res.json(error);
         });
         request.end();
     });
 app.route('/api/sessions')
-    .post((req, res) => {
-        let options = {
+    .post(function(req, res) {
+        var options = {
             rejectUnauthorized:false,
             host : 'support.netcom.com.co',
             port : 8343,
@@ -84,15 +84,15 @@ app.route('/api/sessions')
                 'Authorization' : req.get('Authorization')
             }
         };
-        let request = https.request(options, response => {
-           response.on('data', bufferData=>{
+        var request = https.request(options, function(response) {
+           response.on('data', function(bufferData){
                res.json(JSON.parse(bufferData.toString()));
            });
-           response.on('error', error => {
+           response.on('error', function(error) {
               console.log(error);
            });
         });
-        request.on('error', error => {
+        request.on('error', function(error){
             console.log(error);
         });
         request.write(JSON.stringify(req.body));
@@ -100,8 +100,8 @@ app.route('/api/sessions')
     });
 
 app.route('/api/:userid/passwords')
-    .post((req, res) => {
-        let options = {
+    .post(function(req, res){
+        var options = {
             rejectUnauthorized:false,
             host : 'support.netcom.com.co',
             port : 8343,
@@ -113,11 +113,11 @@ app.route('/api/:userid/passwords')
             }
         };
 
-        let request = https.request(options, response => {
-            response.on('data', bufferData=>{
+        var request = https.request(options, function(response) {
+            response.on('data', function(bufferData){
                 res.json(JSON.parse(bufferData.toString()));
             });
-            response.on('error', error => {
+            response.on('error', function(error) {
                 console.log(error);
             });
         });
@@ -129,8 +129,8 @@ app.route('/api/:userid/passwords')
     });
 
 app.route('/api/:userid/sessions')
-    .delete((req , res) => {
-        let options = {
+    .delete(function(req , res) {
+        var options = {
             rejectUnauthorized:false,
             host : 'support.netcom.com.co',
             port : 8343,
@@ -142,23 +142,23 @@ app.route('/api/:userid/sessions')
             }
         };
 
-        let request = https.request(options, response => {
-           response.on('data', bufferData => {
+        var request = https.request(options, function(response) {
+           response.on('data', function(bufferData) {
                 res.json(JSON.parse(bufferData.toString()));
            });
-           response.on('error', error =>{
+           response.on('error', function(error){
                console.log(error);
                res.json(error);
            });
         });
 
-        request.on('error', error =>{
+        request.on('error', function(error){
             console.log(error);
             res.json(error);
         });
         request.end();
     });
 
-app.listen(3000, () => {
+app.listen(3000, function() {
     console.log('Server started on port 3000');
 });

@@ -1,0 +1,68 @@
+<div ng-init="vm.findAllUcodes()">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Comercios - Código Único</h2>
+            <a class="btn btn-default btn-md" ui-sref="ucode.form">
+                <i class="glyphicon glyphicon-circle-arrow-left"></i>
+                Volver
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <table id="ucodelisttable" class="table table-bordered table-striped" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>{{'LABELS.UNIQUE_CODE' | translate}}</th>
+                    <th>{{'LABELS.NIT' | translate}}</th>
+                    <th>{{'LABELS.COMERCE_NAME' | translate}}</th>
+                    <th>{{'LABELS.EMAIL' | translate}}</th>
+                    <th>{{'LABELS.ADDRESS' | translate}}</th>
+                    <th>{{'LABELS.CITY' | translate}}</th>
+                    <th>{{'LABELS.COUNTRY' | translate}}</th>
+                    <th>{{'LABELS.CONTACT_NAME' | translate}}</th>
+                    <th>{{'LABELS.CONTACT_PHONE' | translate}}</th>
+                    <th>{{'LABELS.ACTIVE' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="ucCommerce in vm.ucCommerces">
+                        <td ng-bind="ucCommerce.uniqueCode"></td>
+                        <td ng-bind="ucCommerce.nit"></td>
+                        <td ng-bind="ucCommerce.name"></td>
+                        <td ng-bind="ucCommerce.email"></td>
+                        <td ng-bind="ucCommerce.address"></td>
+                        <td ng-bind="ucCommerce.cityName"></td>
+                        <td ng-bind="ucCommerce.countryName"></td>
+                        <td ng-bind="ucCommerce.contactName"></td>
+                        <td ng-bind="ucCommerce.telephoneContact"></td>
+                        <td ng-bind="ucCommerce.stateId == '1' ? 'LABELS.YES' : 'LABELS.NO' | translate"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="pull-right">
+                <ul class="pagination">
+                    <li ng-class="{'disabled' : vm.page == vm.pages[0]}"
+                        ng-click="vm.page == vm.pages[0]||vm.previousPage()" style="cursor: pointer">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="n in vm.pages" ng-class="{'active' : vm.page == n}">
+                        <a style="cursor: pointer"
+                           ng-click="vm.getPageList(n)">{{n}}</a>
+                    </li>
+
+                    <li ng-class="{'disabled' : vm.page == vm.pages[vm.pages.length - 1]}"
+                        ng-click="vm.page == vm.pages[vm.pages.length - 1]||vm.nextPage()" style="cursor: pointer;">
+                        <a aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
