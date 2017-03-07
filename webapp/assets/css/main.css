@@ -100,3 +100,7 @@ table.dataTable td{
 .datepicker-inline {
     margin: 0 auto !important;
 }
+
+.label150px {
+    width: 150px;
+}

@@ -4,7 +4,7 @@
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Comercios NIT</h2>
+                        <h2>{{'SECTIONS.COMERCES' | translate}}</h2>
                     </div>
                 </div>
                 <div class="row" ng-if="vm.showConectionError">
@@ -144,7 +144,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
-                                <div id="active">
+                                <div id="active" ng-init="vm.comerce.stateId = '1'">
 
                                     <label class="radio-inline"><input type="radio" name="active" ng-model="vm.comerce.stateId" value="1">{{'LABELS.YES'
                                         |
@@ -166,6 +166,7 @@
 
 
             </div>
+            <div class="col-md-7"></div>
         </form>
     </div>
 

@@ -5,7 +5,8 @@
     "TERMINALS" : "Terminales",
     "ADMIN_USERS" : "Usuarios Adm",
     "COMERCE_USERS" : "Usuarios Comercio",
-    "QUERIES" : "Consultas"
+    "BUSINESS_TYPE" : "Tipos de Negocio Multicomercio",
+    "QUERIES" : "Consulta de Transacciones"
   },
   "LOGIN_TITLE": "Ingrese su usuario y contraseña",
   "LOGIN_USERNAME_LABEL": "# Identificación :",
@@ -49,6 +50,8 @@
     "USER_TYPE_NUMBER" : "NIT – CU – Terminal",
     "CURRENT_PASSWORD" : "Contraseña Actual",
     "NEW_PASSWORD" : "Contraseña Nueva",
-    "REPEAT_NEW_PASSWORD" : "Repetir contraseña nueva"
+    "REPEAT_NEW_PASSWORD" : "Repetir contraseña nueva",
+    "LAST_TEN_TRANSACTIONS" : "Últimas 10 transacciones",
+    "DATE_RANGE" : "Rango de fechas"
   }
 }

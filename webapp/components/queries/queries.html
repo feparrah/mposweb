@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.queriesForm" novalidate ng-submit="vm.test()">
-            <div class="col-md-5">
+        <div class="col-md-5">
+            <form name="vm.queriesForm" novalidate ng-submit="vm.test()">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Consulta de Transacciones</h2>
+                        <h2>{{'SECTIONS.QUERIES' | translate}}</h2>
                     </div>
                 </div>
                 <div class="row" ng-if="vm.showConectionError">
@@ -18,14 +18,16 @@
                         <div id="active">
                             <div>
 
-                            <label class="radio-inline"><input type="radio" id="last10Transactions" name="last10Transactions" checked="checked">{{'Últimas 10 transacciones'
-                                |
-                                translate}}</label>
+                                <label class="radio-inline"><input type="radio" id="last10Transactions"
+                                                                   name="last10Transactions" ng-model="vm.queryOption"
+                                                                   value="1">{{'LABELS.LAST_TEN_TRANSACTIONS' |
+                                    translate}}</label>
                             </div>
                             <div>
 
-                            <label class="radio-inline"><input type="radio" id="dateRange" name="dateRange">{{'Rango de fechas' |
-                                translate}}</label>
+                                <label class="radio-inline"><input type="radio" id="dateRange" name="dateRange"
+                                                                   ng-model="vm.queryOption" value="2">{{'LABELS.DATE_RANGE'
+                                    | translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -33,36 +35,49 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-10">
-                        <div class="row">
+                        <div class="row" ng-hide="vm.queryOption == '1'">
                             <div class="col-md-6">
-                                <label for="startDate" class="control-label">Desde:</label>
-                                <div id="startDate" data-date="{{vm.currentTime | date : 'dd/MM/yyyy'}}"></div>
+                                <label for="sd" class="control-label">Desde:</label>
+                                <p class="input-group">
+
+                                    <input type="text" name="sd" id="sd" class="form-control"
+                                           uib-datepicker-popup="{{vm.format}}" ng-model="vm.sd"
+                                           datepicker-options="vm.dateOptions" is-open="vm.openedSD"
+                                           show-button-bar="false" popup-placement="bottom-left">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.openPopupSD()"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                </p>
                             </div>
                             <div class="col-md-6">
-                                <label for="endDate" class="control-label">Hasta:</label>
-                                <div id="endDate" data-date="{{vm.currentTime | date : 'dd/MM/yyyy'}}"></div>
+                                <label for="ed" class="control-label">Hasta:</label>
+                                <p class="input-group">
+                                    <input type="text" name="ed" id="ed" class="form-control"
+                                           uib-datepicker-popup="{{vm.format}}" ng-model="vm.ed"
+                                           datepicker-options="vm.dateOptions" is-open="vm.openedED"
+                                           show-button-bar="false" popup-placement="bottom-left">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.openPopupED()"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                </p>
                             </div>
-                                <script>
-                                    $('#startDate').datepicker({
-                                        language : 'es'
-                                    });
-                                    $('#endDate').datepicker({
-                                        language : 'es'
-                                    });
-                                </script>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group"
                                      ng-class="{'has-error' : (vm.queriesForm.nit.$touched || vm.queriesForm.nit.$dirty) && vm.queriesForm.nit.$invalid}">
                                     <label for="nit">{{'LABELS.NIT' | translate}}</label>
-                                    <input type="text" name="nit" id="nit" class="form-control" ng-model="vm.comerce.nit"
+                                    <input type="text" name="nit" id="nit" class="form-control"
+                                           ng-model="vm.comerce.nit"
                                            ng-pattern="/^\d*$/" required ng-maxlength="12">
                                     <div ng-messages="(vm.queriesForm.nit.$touched || vm.queriesForm.nit.$dirty) && vm.queriesForm.nit.$error"
                                          class="help-block">
                                         <div ng-message="required">{{ 'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="pattern">{{'ERRORS.ONLY_NUMBERS_FIELD' | translate}}</div>
-                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{ max : 12}'}}
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate : '{ max :
+                                            12}'}}
                                         </div>
                                     </div>
                                 </div>
@@ -70,24 +85,34 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group" ng-class="{'has-error' : (vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$invalid}">
+                                <div class="form-group"
+                                     ng-class="{'has-error' : (vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$invalid}">
                                     <label for="ucode">{{'LABELS.UNIQUE_CODE' | translate}}</label>
-                                    <input type="text" name="ucode" id="ucode" ng-model="vm.terminal.ucode" class="form-control" ng-maxlength="10" required>
-                                    <div ng-messages="(vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$error" class="help-block">
+                                    <input type="text" name="ucode" id="ucode" ng-model="vm.terminal.ucode"
+                                           class="form-control" ng-maxlength="10" required>
+                                    <div ng-messages="(vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$error"
+                                         class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
-                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:10}'}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate:
+                                            '{max:10}'}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group" ng-class="{'has-error' : (vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$invalid}">
+                                <div class="form-group"
+                                     ng-class="{'has-error' : (vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$invalid}">
                                     <label for="ucode">{{'LABELS.TERMINAL' | translate}}</label>
-                                    <input type="text" name="terminal" id="terminal" ng-model="vm.terminal.ucode" class="form-control" ng-maxlength="10" required>
-                                    <div ng-messages="(vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$error" class="help-block">
+                                    <input type="text" name="terminal" id="terminal" ng-model="vm.terminal.ucode"
+                                           class="form-control" ng-maxlength="10" required>
+                                    <div ng-messages="(vm.queriesForm.ucode.$touched || vm.queriesForm.ucode.$dirty) && vm.queriesForm.ucode.$error"
+                                         class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
-                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:10}'}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate:
+                                            '{max:10}'}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,16 +122,20 @@
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary btn150px pull-right" ng-click="vm.test()">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    Consultar</button>
-                                <button type="button" class="btn btn-default btn150px pull-right" style="margin-right: 10px; width: 150px;">
+                                    Consultar
+                                </button>
+                                <button type="button" class="btn btn-default btn150px pull-right"
+                                        style="margin-right: 10px; width: 150px;">
                                     <i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;
-                                    Exportar Excel</button>
+                                    Exportar Excel
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="col-md-7"></div>
     </div>
 </div>

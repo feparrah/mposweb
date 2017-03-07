@@ -36,9 +36,13 @@
                 });
             } else {
                 if (vm.commerceFound) {
-                    ComercesService.updateCommerce(vm.comerce);
+                    ComercesService.updateCommerce(vm.comerce).then().catch(function (error) {
+                        $log.error(error);
+                    });
                 } else {
-                    ComercesService.createCommerce(vm.comerce);
+                    ComercesService.createCommerce(vm.comerce).then().catch(function (error) {
+                        $log.error(error);
+                    });
                 }
             }
         };

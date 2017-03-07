@@ -20,6 +20,7 @@
     "js-sha512": "^0.2.2",
     "datatables.net": "^2.1.1",
     "datatables.net-bs": "^2.1.1",
-    "bootstrap-datepicker": "^1.6.4"
+    "bootstrap-datepicker": "^1.6.4",
+    "angular-bootstrap": "^2.5.0"
   }
 }

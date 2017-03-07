@@ -7,11 +7,41 @@
             terminalsApis = apis.terminals;
         });
 
+
+        function Terminal(address, businessType, cityName, commerceName, countryName, email, imei, license, stateId, telephoneNumber, terminalCode, terminalId){
+            this.address = $base64.decode(address);
+            this.businessType = $base64.decode(businessType);
+            this.cityName = $base64.decode(cityName);
+            this.commerceName = $base64.decode(commerceName);
+            this.countryName = $base64.decode(countryName);
+            this.email = $base64.decode(email);
+            this.imei = $base64.decode(imei);
+            this.licence = $base64.decode(license);
+            this.stateId = $base64.decode(stateId);
+            this.thelephoneNumber = $base64.decode(telephoneNumber);
+            this.terminalCode = $base64.decode(terminalCode);
+            this.terminalId = $base64.decode(terminalId);
+
+        }
+
+        function findTerminal(terminalCode){
+            var def = $q.defer();
+            Oauth2Service.getOauth2Token().then(function (tokenData) {
+                $http({
+                    method : 'GET',
+                    url : terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode)),
+                    headers: {
+                        'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                });
+            });
+        }
+
         function countPages(){
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                console.log(terminalsApis.countPages);
-                console.log(tokenData.access_token);
                 $http({
                     method : 'GET',
                     url : terminalsApis.countPages,
@@ -27,6 +57,43 @@
             return def.promise;
         }
 
+        function findPage(pageNumber){
+            var def = $q.defer();
+            Oauth2Service.getOauth2Token().then(function (tokenData) {
+                $http({
+                    method : 'GET',
+                    url : terminalsApis.findPage.replace('{pageNumber}', $base64.encode(pageNumber)),
+                    headers: {
+                        'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                    }
+                }).then(function (response) {
+                    var terminals = [];
+                    response.data.terminalList.forEach(function (tData) {
+                        console.log(tData);
+                        var terminal = new Terminal(
+                            tData.terminal.address,
+                            tData.terminal.businessType,
+                            tData.terminal.cityName,
+                            tData.terminal.commerceName,
+                            tData.terminal.countryName,
+                            tData.terminal.email,
+                            tData.terminal.imei,
+                            tData.terminal.license,
+                            tData.terminal.stateId,
+                            tData.terminal.telephoneNumber,
+                            tData.terminal.terminalCode,
+                            tData.terminal.terminalId
+                        );
+                        terminals.push(terminal);
+                    });
+                    def.resolve(terminals);
+                }).catch();
+            });
+            return def.promise;
+        }
+
         this.countPages = countPages;
+        this.findPage = findPage;
+        this.findTerminal = findTerminal;
     }
 })();

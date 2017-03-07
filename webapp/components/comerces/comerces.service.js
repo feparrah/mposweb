@@ -2,7 +2,7 @@
     angular.module('mpos').service('ComercesService', ComercesService);
 
 
-    function ComercesService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope) {
+    function ComercesService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope, $log) {
         var comercesApis;
         netcomEnvironment.then(function (apis) {
             comercesApis = apis.comerces;
@@ -130,9 +130,16 @@
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
-                    console.log(response);
+                    var responseCode = $base64.decode(response.data.responseCode);
+                    if(responseCode === '1'){
+
+                    }else{
+                        var responseMessage = $base64.decode(response.data.responseMessage);
+                        def.reject(responseMessage);
+                    }
                 });
             });
+            return def.promise;
         }
 
         function updateCommerce(commerce) {
@@ -155,10 +162,17 @@
                        'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                    }
                }).then(function (response) {
-                  console.log(response);
+                   var responseCode = $base64.decode(response.data.responseCode);
+                   if(responseCode === '1'){
+                        def.resolve();
+                   }else{
+                       var responseMessage = $base64.decode(response.data.responseMessage);
+                       def.reject(responseMessage);
+                   }
                });
 
             });
+            return def.promise;
         }
 
         this.findComerce = findComerce;

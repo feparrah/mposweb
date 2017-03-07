@@ -4,7 +4,7 @@
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Terminales</h2>
+                        <h2>{{'SECTIONS.TERMINALS' | translate}}</h2>
                     </div>
                 </div>
                 <div class="row" ng-if="vm.showConectionError">
@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                         <div class="form-group" ng-class="{'has-error' : (vm.terminalForm.terminal.$touched || vm.terminalForm.terminal.$dirty) && vm.terminalForm.terminal.$invalid}">
                             <label for="terminal">{{'LABELS.TERMINAL' | translate}}</label>
-                            <input type="text" name="terminal" id="terminal" ng-model="vm.terminal.id" ng-maxlength="8" required class="form-control">
+                            <input type="text" name="terminal" id="terminal" ng-model="vm.terminal.terminalCode" ng-maxlength="8" required class="form-control">
                             <div ng-messages="(vm.terminalForm.terminal.$touched || vm.terminalForm.terminal.$dirty) && vm.terminalForm.terminal.$error" class="help-block">
                                 <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                 <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:8}'}}</div>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn150px btn-sm" ng-click="vm.test()"><i class="glyphicon glyphicon-search"></i> Consultar</button>
+                        <button type="button" class="btn btn-primary btn150px btn-sm" ng-click="vm.findTerminal(vm.terminal.terminalCode)"><i class="glyphicon glyphicon-search"></i> Consultar</button>
                         <a ui-sref="terminals.list" class="btn btn-primary btn150px btn-sm"><i class="glyphicon glyphicon-list"></i>&nbsp; Ver todos</a>
                     </div>
                 </div>
@@ -168,6 +168,7 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-7"></div>
         </form>
     </div>
 </div>

@@ -1,7 +1,7 @@
 (function () {
     angular.module('mpos').service('UniqueCodeService', UniqueCodeService);
 
-    function UniqueCodeService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope){
+    function UniqueCodeService($http, $q, netcomEnvironment, Oauth2Service, $base64, $log){
         var ucodesApis;
         netcomEnvironment.then(function (apis) {
             ucodesApis = apis.ucodes;
@@ -24,9 +24,7 @@
         function findUcCommerce(id){
             var def = $q.defer();
             var encodedId = $base64.encode(id);
-            console.log(ucodesApis.findUcode.replace('{id}', encodedId));
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                console.log(tokenData.access_token);
                 $http({
                     method : 'GET',
                     url : ucodesApis.findUcode.replace('{id}', encodedId),
@@ -34,15 +32,36 @@
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
-                    console.log(response);
+                    var responseCode = $base64.decode(response.data.responseCode);
+                    if(responseCode === '1'){
+                        var ucCommerce = new UcCommerce(
+                            response.data.address,
+                            response.data.cityName,
+                            response.data.contactName,
+                            response.data.countryName,
+                            response.data.email,
+                            response.data.businessName,
+                            response.data.nit,
+                            response.data.stateId,
+                            response.data.telephoneContact,
+                            response.data.ucId,
+                            encodedId
+                        );
+                        def.resolve(ucCommerce);
+
+                    }else {
+                        var responseMessage = $base64.decode(response.data.responseMessage);
+                        $log.info(responseMessage);
+                        def.reject();
+                    }
                 });
             });
+            return def.promise;
         }
 
         function countPages(){
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                console.log(tokenData.access_token);
                 $http({
                     method : 'GET',
                     url : ucodesApis.countPages,
@@ -61,7 +80,6 @@
         function findPage(pageNumber) {
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                console.log(ucodesApis.findPage.replace('{pageNumber}', $base64.encode(pageNumber)));
                 $http({
                     method : 'GET',
                     url : ucodesApis.findPage.replace('{pageNumber}', $base64.encode(pageNumber)),

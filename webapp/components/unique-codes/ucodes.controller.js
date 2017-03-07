@@ -12,8 +12,19 @@
             if(vm.comerceForm.ucode.$invalid){
                 vm.comerceForm.ucode.$setTouched();
             }else{
-                console.log(uniqueCode);
-                UniqueCodeService.findUcCommerce(uniqueCode);
+                UniqueCodeService.findUcCommerce(uniqueCode).then(function (ucCommerce) {
+                    vm.comerce = ucCommerce;
+                    vm.disableAddress = vm.comerce.address !== '';
+                    vm.disableCityName = vm.comerce.cityName !== '';
+                    vm.disableContactName = vm.comerce.contactName !== '';
+                    vm.disableCountryName = vm.comerce.countryName !== '';
+                    vm.disableEmail = vm.comerce.email !== '';
+                    vm.disableName = vm.comerce.name !== '';
+                    vm.disableNit = vm.comerce.nit !== '';
+                    vm.disableTelephoneContact = vm.comerce.telephoneContact !== '';
+                    vm.disableUniqueCode = vm.comerce.uniqueCode !== '';
+
+                });
             }
         }
 
@@ -25,14 +36,14 @@
         }
 
         function nextPage() {
-            ComercesService.findPage(vm.page + 1).then(function (list) {
+            UniqueCodeService.findPage(vm.page + 1).then(function (list) {
                 vm.comercesList = list;
                 vm.page++;
             });
         }
 
         function previousPage() {
-            ComercesService.findPage(vm.page - 1).then(function (list) {
+            UniqueCodeService.findPage(vm.page - 1).then(function (list) {
                 vm.comercesList = list;
                 vm.page--;
             });
