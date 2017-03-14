@@ -6,30 +6,39 @@
   "changePassword": "/api/{userId}/passwords",
   "dev": {
     "token": "/api/token",
-    "login": "/api/sessions",
+    "login": {
+      "url": "/api/sessions",
+      "channel": "1",
+      "uuid": "82e601b7059dbf50",
+      "version": "4.2.2"
+    },
     "logout": "/api/{userId}/sessions",
     "userInfo": "/api/users/{userId}",
     "changePassword": "/api/{userId}/passwords",
-    "comerces" : {
-      "findComerce" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}",
-      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/pages",
-      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/?page={page}",
-      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits",
-      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}"
+    "comerces": {
+      "findComerce": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}",
+      "countPages": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/pages",
+      "findPage": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/?page={page}",
+      "create": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits",
+      "update": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}"
     },
-    "ucodes" : {
-      "findUcode" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{id}",
-      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/pages",
-      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/?page={pageNumber}",
-      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes",
-      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{ucId}"
+    "ucodes": {
+      "findUcode": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{id}",
+      "countPages": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/pages",
+      "findPage": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/?page={pageNumber}",
+      "create": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes",
+      "update": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/unique_codes/{ucId}"
     },
-    "terminals" : {
-      "findTerminal" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{id}",
-      "countPages" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/pages",
-      "findPage" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/?page={pageNumber}",
-      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals",
-      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{terminalId}"
+    "terminals": {
+      "findTerminal": "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{id}",
+      "countPages": "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/pages",
+      "findPage": "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/?page={pageNumber}",
+      "create": "https://support.netcom.com.co:9546/mpos-merchant/api/terminals",
+      "update": "https://support.netcom.com.co:9546/mpos-merchant/api/terminals/{terminalId}"
+    },
+    "businessType": {
+      "findAllBusinessTypes": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types",
+      "create": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types"
     }
   }
 }

@@ -1,32 +1,18 @@
-var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $http, $base64, restApis) {
+angular.module('mpos').service('LoginService', loginService);
+
+function loginService($resource, $log, $q, $rootScope, $cookieStore, $http, $base64, netcomEnvironment, Oauth2Service) {
     var restUrls;
 
-    restApis.getApis().then(function(apis){
+    netcomEnvironment.then(function(apis){
        restUrls = apis;
     });
 
 
-    var getOauth2Token = function () {
-        var def = $q.defer();
-        var data = 'client_id=CFGkFIU4JKhy9cjG6HnoctOg8aQa&client_secret=Tek1bEVvPXLNb7AI5fkVVbhToEMa&username=admin&password=admin&grant_type=password';
-        $http({
-            url: restUrls.token,
-            method: 'POST',
-            data: data,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function(response){
-            def.resolve(response.data);
-        }).catch(function(error){
-            def.reject(error);
-        });
-        return def.promise;
-    };
+
 
     this.changePassword = function(userId, currentPassword, newPassword, confirmedPassword){
         var def = $q.defer();
-        getOauth2Token().then(function(tokenData){
+        Oauth2Service.getOauth2Token().then(function(tokenData){
             var payload = {
                 currentPassword : $base64.encode(sha512(currentPassword)),
                 newPassword : $base64.encode(sha512(newPassword)),
@@ -57,7 +43,7 @@ var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
 
     this.logout = function(userId){
         var def = $q.defer();
-        getOauth2Token().then(function(tokenData){
+        Oauth2Service.getOauth2Token().then(function(tokenData){
             $http({
                 url: restUrls.logout.replace('{userId}', $base64.encode(userId)),
                 method: 'DELETE',
@@ -65,35 +51,32 @@ var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                     'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                 }
             }).then(function(response){
-                console.log(response);
                 $rootScope.currentUser = undefined;
                 $cookieStore.remove('jd_session');
                 def.resolve();
             }).catch(function(error){
-                console.log(error);
                 def.reject();
             });
         });
         return def.promise;
     };
 
-    this.validateUser = function(credentials){
+    this.validateUser = function(credentials, ipAddress){
         var def = $q.defer();
 
 
-        getOauth2Token().then(function(tokenData){
-            console.log(tokenData.access_token);
+        Oauth2Service.getOauth2Token().then(function(tokenData){
             var payload = {
                 user: $base64.encode(credentials.username),
                 password: $base64.encode(sha512(credentials.password)),
-                channel: $base64.encode('1'),
-                uuid: $base64.encode('82e601b7059dbf50'),
-                version: $base64.encode('4.2.2'),
-                ipAddress: $base64.encode('192.168.215.239')
+                channel: $base64.encode(restUrls.login.channel),
+                uuid: $base64.encode(restUrls.login.uuid),
+                version: $base64.encode(restUrls.login.version),
+                ipAddress: $base64.encode(ipAddress)
             };
 
             $http({
-                url: restUrls.login,
+                url: restUrls.login.url,
                 method: 'POST',
                 data: payload,
                 headers: {
@@ -117,7 +100,6 @@ var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
                             'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                         }
                     }).then( function(userInfoResponse) {
-                        console.log(userInfoResponse.data);
                         var uInfo = {
                             address : $base64.decode(userInfoResponse.data.address),
                             cellPhone : $base64.decode(userInfoResponse.data.cellPhone),
@@ -152,5 +134,4 @@ var loginService = function ($resource, $log, $q, $rootScope, $cookieStore, $htt
 };
 
 
-loginService.$inject = ['$resource', '$log', '$q', '$rootScope', '$cookieStore', '$http', '$base64', 'restApis'];
-angular.module('mpos').service('LoginService', loginService);
+

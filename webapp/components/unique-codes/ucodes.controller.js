@@ -1,50 +1,115 @@
 (function () {
     angular.module('mpos').controller('uniqueCodeCtrl', uniqueCodeCtrl);
 
-    function uniqueCodeCtrl($state, UniqueCodeService, $log) {
+    function uniqueCodeCtrl($state, UniqueCodeService, $log, UcCommerce, BusinessTypeService, BusinessType) {
         var vm = this;
 
 
         vm.showConectionError = false;
+        vm.businessTypes = [];
+        vm.commerceFound = false;
+        vm.showCommerceNotFound = false;
+        vm.comerce = new UcCommerce();
+        BusinessTypeService.findAllBusinessTypes().then(function (list) {
+
+            list.forEach(function (data) {
+                var businessType = new BusinessType();
+                businessType.setBusinessTypeId(data.businessType.businessTypeId);
+                businessType.setBusinessName(data.businessType.businessName);
+                vm.businessTypes.push(businessType);
+            });
+        });
 
 
+        function sendUcCommerce() {
+            if (vm.comerceForm.$invalid) {
+                angular.forEach(vm.comerceForm.$error.required, function (field) {
+                    field.$setDirty();
+                });
+            }else{
+                if(vm.commerceFound){
+                    UniqueCodeService.updateUcCommerce(vm.comerce.updateBody(), vm.comerce.ucId).then(function () {
+                        resetForm();
+                    });
+                }else {
+                    UniqueCodeService.createUcCommerce(vm.comerce.createBody()).then(function () {
+                        resetForm();
+                    });
+                }
+            }
+        }
+        
         function findUcCommerce(uniqueCode){
             if(vm.comerceForm.ucode.$invalid){
                 vm.comerceForm.ucode.$setTouched();
             }else{
-                UniqueCodeService.findUcCommerce(uniqueCode).then(function (ucCommerce) {
-                    vm.comerce = ucCommerce;
-                    vm.disableAddress = vm.comerce.address !== '';
-                    vm.disableCityName = vm.comerce.cityName !== '';
-                    vm.disableContactName = vm.comerce.contactName !== '';
-                    vm.disableCountryName = vm.comerce.countryName !== '';
-                    vm.disableEmail = vm.comerce.email !== '';
-                    vm.disableName = vm.comerce.name !== '';
-                    vm.disableNit = vm.comerce.nit !== '';
-                    vm.disableTelephoneContact = vm.comerce.telephoneContact !== '';
-                    vm.disableUniqueCode = vm.comerce.uniqueCode !== '';
-
+                UniqueCodeService.findUcCommerce(uniqueCode).then(function (data) {
+                    vm.comerce = new UcCommerce();
+                    vm.comerce.setUniqueCode(uniqueCode, false);
+                    vm.comerce.setData(
+                        data.address,
+                        data.cityName,
+                        data.contactName,
+                        data.countryName,
+                        data.email,
+                        data.businessName,
+                        data.nit,
+                        data.stateId,
+                        data.telephoneContact,
+                        data.ucId
+                    );
+                    if(vm.comerce.ucId != ''){
+                        vm.commerceFound = true;
+                        vm.showCommerceNotFound = false;
+                    }else{
+                        vm.commerceFound = false;
+                        vm.showCommerceNotFound = true;
+                        resetForm();
+                    }
+                }).catch(function (error) {
+                    $log.error(error);
                 });
             }
         }
 
+        function setUcCommerces(list){
+            vm.ucCommerces = [];
+            angular.forEach(list, function (data) {
+                var ucCommerce = new UcCommerce();
+                ucCommerce.setUniqueCode(data.ucCommerce.uniqueCode, true);
+                ucCommerce.setData(
+                    data.ucCommerce.address,
+                    data.ucCommerce.cityName,
+                    data.ucCommerce.contactName,
+                    data.ucCommerce.countryName,
+                    data.ucCommerce.email,
+                    data.ucCommerce.name,
+                    data.ucCommerce.nit,
+                    data.ucCommerce.stateId,
+                    data.ucCommerce.telephoneContact,
+                    data.ucCommerce.ucId
+                );
+                vm.ucCommerces.push(ucCommerce);
+            })
+        }
+
         function getPageList(page) {
-            UniqueCodeService.findPage(page).then(function (ucCommerces) {
-                vm.ucCommerces = ucCommerces;
+            UniqueCodeService.findPage(page).then(function (list) {
+                setUcCommerces(list);
                 vm.page = page;
             });
         }
 
         function nextPage() {
             UniqueCodeService.findPage(vm.page + 1).then(function (list) {
-                vm.comercesList = list;
+                setUcCommerces(list);
                 vm.page++;
             });
         }
 
         function previousPage() {
             UniqueCodeService.findPage(vm.page - 1).then(function (list) {
-                vm.comercesList = list;
+                setUcCommerces(list);
                 vm.page--;
             });
         }
@@ -57,16 +122,22 @@
                 }
                 vm.page = 1;
                 vm.getPageList(vm.page);
-            }).catch(function (error) {
-                $log.error(error);
             });
         }
 
+
+        function resetForm(){
+            vm.comerce = new UcCommerce();
+            vm.comerceForm.$setUntouched();
+            vm.comerceForm.$setPristine();
+        }
 
         vm.findUcCommerce = findUcCommerce;
         vm.getPageList = getPageList;
         vm.nextPage = nextPage;
         vm.previousPage = previousPage;
         vm.findAllUcodes = findAllUcodes;
+        vm.sendUcCommerce = sendUcCommerce;
+        vm.resetForm = resetForm;
     }
 })();

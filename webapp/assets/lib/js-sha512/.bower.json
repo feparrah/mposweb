@@ -1,0 +1,21 @@
+{
+  "name": "js-sha512",
+  "version": "0.2.2",
+  "main": [
+    "build/sha512.min.js"
+  ],
+  "ignore": [
+    "samples",
+    "tests"
+  ],
+  "homepage": "https://github.com/emn178/js-sha512",
+  "_release": "0.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.2",
+    "commit": "09469dc45ec5cf7e87582123e688ee416b1eaca3"
+  },
+  "_source": "https://github.com/emn178/js-sha512.git",
+  "_target": "^0.2.2",
+  "_originalSource": "js-sha512"
+}

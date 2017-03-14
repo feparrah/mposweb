@@ -2,11 +2,13 @@
 
     angular.module('mpos').config(config);
 
-    config.$inject = ['$stateProvider','$urlRouterProvider','$translateProvider','netcomEnvironmentProvider'];
+    config.$inject = ['$stateProvider','$urlRouterProvider','$translateProvider','netcomEnvironmentProvider','$logProvider','sessionScheduleProvider'];
 
-    function config($stateProvider, $urlRouterProvider, $translateProvider, netcomEnvironmentProvider) {
+    function config($stateProvider, $urlRouterProvider, $translateProvider, netcomEnvironmentProvider,$logProvider,sessionScheduleProvider) {
 
         netcomEnvironmentProvider.setEnvironment('dev');
+        $logProvider.debugEnabled(true);
+        sessionScheduleProvider.setRefreshSessionTime(2);
 
         $stateProvider.state('login', {
             url: '/login',

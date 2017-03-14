@@ -19,7 +19,8 @@
     "ONLY_NUMBERS_FIELD": "Digite solo caracteres numericos",
     "MAX_LENGTH_FIELD": "Digite maximo {{max}} caracteres",
     "MIN_LENGTH_FIELD" : "Digite minimo {{min}} caracteres",
-    "EMAIL_FIELD" : "Ingrese un correo electronico valido"
+    "EMAIL_FIELD" : "Ingrese un correo electronico valido",
+    "COMMERCE_NOT_FOUND" : "Comercio {{commerce}} no encontrado"
   },
   "LABELS": {
     "NIT": "NIT",

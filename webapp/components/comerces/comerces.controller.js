@@ -2,68 +2,94 @@
 
     angular.module('mpos').controller('comercesCtrl', commercesCtrl);
 
-    function commercesCtrl($state, ComercesService, $log) {
+    function commercesCtrl($state, ComercesService, $log, Commerce) {
         var vm = this;
         vm.showConectionError = false;
         vm.commerceFound = false;
+        vm.showCommerceNotFound = false;
+        vm.comerce = new Commerce();
 
         function findComerce(nit) {
-            if (vm.comercesForm.nit.$invalid) {
-                vm.comercesform.nit.$setTouched();
-            } else {
-                ComercesService.findComerce(nit).then(function (comerce) {
-                    vm.comerce = comerce;
-                    vm.disableNit = true;
-                    vm.disableBusinessName = comerce.businessName !== '';
-                    vm.disableAddress = comerce.address !== '';
-                    vm.disableCity = comerce.city !== '';
-                    vm.diableCountry = comerce.country !== '';
-                    vm.disableContactName = comerce.contactName !== '';
-                    vm.disableTelephoneContact = comerce.telephoneContact !== '';
+            if (vm.comercesForm.nit.$valid) {
+
+                ComercesService.findComerce(vm.comerce.nit).then(function (data) {
+                    vm.comerce.setNit(nit, false);
+                    vm.comerce.setData(
+                        data.address,
+                        data.businessName,
+                        data.city,
+                        data.cityCode,
+                        data.contactName,
+                        data.country,
+                        data.nitId,
+                        data.stateId,
+                        data.telephoneContact
+                    );
                     vm.commerceFound = true;
+                    vm.showCommerceNotFound = false;
                 }).catch(function (error) {
                     vm.commerceFound = false;
-                    $log.info(error);
+                    vm.showCommerceNotFound = true;
+                    resetForm();
                 });
             }
         }
 
-        vm.sendComerce = function () {
+        function sendComerce() {
             if (vm.comercesForm.$invalid) {
                 angular.forEach(vm.comercesForm.$error.required, function (field) {
                     field.$setDirty();
                     field.$setTouched();
                 });
             } else {
-                if (vm.commerceFound) {
-                    ComercesService.updateCommerce(vm.comerce).then().catch(function (error) {
-                        $log.error(error);
+                if (!vm.commerceFound) {
+                    ComercesService.createCommerce(vm.comerce.createBody()).then(function () {
+                        
                     });
                 } else {
-                    ComercesService.createCommerce(vm.comerce).then().catch(function (error) {
-                        $log.error(error);
+                    ComercesService.updateCommerce(vm.comerce.updateBody(), vm.comerce.nitId).then(function () {
+                        
                     });
                 }
             }
-        };
+        }
+
+        function setCommercesList(listData){
+            vm.comercesList = [];
+            listData.forEach(function (data) {
+                var commerce = new Commerce();
+                commerce.setNit(data.nitCommerce.nit, true);
+                commerce.setData(
+                    data.nitCommerce.address,
+                    data.nitCommerce.businessName,
+                    data.nitCommerce.cityName,
+                    '',
+                    data.nitCommerce.contactName,
+                    data.nitCommerce.countryName,
+                    data.nitCommerce.nitId,
+                    data.nitCommerce.stateId,
+                    data.nitCommerce.telephoneContact);
+                vm.comercesList.push(commerce);
+            });
+        }
 
         function getPageList(page) {
             ComercesService.findPage(page).then(function (list) {
-                vm.comercesList = list;
+                setCommercesList(list);
                 vm.page = page;
             });
         }
 
         function nextPage() {
             ComercesService.findPage(vm.page + 1).then(function (list) {
-                vm.comercesList = list;
+                setCommercesList(list);
                 vm.page++;
             });
         }
 
         function previousPage() {
             ComercesService.findPage(vm.page - 1).then(function (list) {
-                vm.comercesList = list;
+                setCommercesList(list);
                 vm.page--;
             });
         }
@@ -79,11 +105,19 @@
             });
         }
 
+        function resetForm(){
+            vm.comerce = new Commerce();
+            vm.comercesForm.$setUntouched();
+            vm.comercesForm.$setPristine();
+        }
 
+
+        vm.sendComerce = sendComerce;
         vm.findComerce = findComerce;
         vm.getPageList = getPageList;
         vm.nextPage = nextPage;
         vm.previousPage = previousPage;
         vm.showAllComerces = showAllComerces;
+        vm.resetForm = resetForm;
     }
 })();

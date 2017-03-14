@@ -1,7 +1,7 @@
 (function () {
     angular.module('mpos').service('TerminalsService', TerminalsService);
 
-    function TerminalsService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope){
+    function TerminalsService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope, $filter, $log){
         var terminalsApis;
         netcomEnvironment.then(function (apis) {
             terminalsApis = apis.terminals;
@@ -27,6 +27,8 @@
         function findTerminal(terminalCode){
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
+                console.log(tokenData.access_token);
+                console.log(terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode)));
                 $http({
                     method : 'GET',
                     url : terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode)),
@@ -34,9 +36,16 @@
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
-                    console.log(response);
+                    var responseCode = $base64.decode(response.data.responseCode);
+                    if (responseCode === '1') {
+                        def.resolve(response.data);
+                    } else {
+                        var responseMessage = $base64.decode(response.data.responseMessage);
+                        def.reject(responseMessage);
+                    }
                 });
             });
+            return def.promise;
         }
 
         function countPages(){
@@ -67,27 +76,32 @@
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
-                    var terminals = [];
-                    response.data.terminalList.forEach(function (tData) {
-                        console.log(tData);
-                        var terminal = new Terminal(
-                            tData.terminal.address,
-                            tData.terminal.businessType,
-                            tData.terminal.cityName,
-                            tData.terminal.commerceName,
-                            tData.terminal.countryName,
-                            tData.terminal.email,
-                            tData.terminal.imei,
-                            tData.terminal.license,
-                            tData.terminal.stateId,
-                            tData.terminal.telephoneNumber,
-                            tData.terminal.terminalCode,
-                            tData.terminal.terminalId
-                        );
-                        terminals.push(terminal);
-                    });
-                    def.resolve(terminals);
+                    def.resolve(response.data.terminalList);
                 }).catch();
+            });
+            return def.promise;
+        }
+
+        function createTerminal(terminal){
+            var def = $q.defer();
+            Oauth2Service.getOauth2Token().then(function (tokenData) {
+                $log.debug($filter('json')(terminal), terminalsApis.create, tokenData.access_token);
+                $http.post(terminalsApis.create, terminal,{
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                    }
+                }).then(function (response) {
+                    var responseCode = $base64.decode(response.data.responseCode);
+                    if (responseCode === '1') {
+
+                    } else {
+                        var responseMessage = $base64.decode(response.data.responseMessage);
+                        def.reject(responseMessage);
+                    }
+                }).catch(function (error) {
+                    $log.error(error);
+                });
             });
             return def.promise;
         }
@@ -95,5 +109,6 @@
         this.countPages = countPages;
         this.findPage = findPage;
         this.findTerminal = findTerminal;
+        this.createTerminal = createTerminal;
     }
 })();
