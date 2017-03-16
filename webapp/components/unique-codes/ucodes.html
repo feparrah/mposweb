@@ -17,6 +17,11 @@
                         <div class="alert alert-info" ng-bind="'ERRORS.COMMERCE_NOT_FOUND' | translate"></div>
                     </div>
                 </div>
+                <div class="row" ng-show="vm.showSuccessMessage">
+                    <div class="col-md-10">
+                        <div class="alert alert-success" ng-bind="'Proceso Exitoso.' | translate"></div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group"

@@ -3,6 +3,7 @@
 
     function CommerceFactory($base64) {
         function Commerce() {
+            this.stateId = '1';
         }
 
         Commerce.prototype.setNit = function (nit, encoded) {

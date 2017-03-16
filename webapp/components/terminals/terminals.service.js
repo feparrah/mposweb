@@ -1,14 +1,14 @@
 (function () {
     angular.module('mpos').service('TerminalsService', TerminalsService);
 
-    function TerminalsService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope, $filter, $log){
+    function TerminalsService($http, $q, netcomEnvironment, Oauth2Service, $base64, $rootScope, $filter, $log) {
         var terminalsApis;
         netcomEnvironment.then(function (apis) {
             terminalsApis = apis.terminals;
         });
 
 
-        function Terminal(address, businessType, cityName, commerceName, countryName, email, imei, license, stateId, telephoneNumber, terminalCode, terminalId){
+        function Terminal(address, businessType, cityName, commerceName, countryName, email, imei, license, stateId, telephoneNumber, terminalCode, terminalId) {
             this.address = $base64.decode(address);
             this.businessType = $base64.decode(businessType);
             this.cityName = $base64.decode(cityName);
@@ -24,36 +24,37 @@
 
         }
 
-        function findTerminal(terminalCode){
+        function findTerminal(terminalCode) {
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                console.log(tokenData.access_token);
-                console.log(terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode)));
+                var url = terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode));
+                $log.debug('*** Find Terminal ***', url, tokenData.access_token);
                 $http({
-                    method : 'GET',
-                    url : terminalsApis.findTerminal.replace('{id}', $base64.encode(terminalCode)),
+                    method: 'GET',
+                    url: url,
                     headers: {
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
                     var responseCode = $base64.decode(response.data.responseCode);
+                    var responseMessage = $base64.decode(response.data.responseMessage);
+                    $log.debug('Response :', responseCode, responseMessage);
                     if (responseCode === '1') {
                         def.resolve(response.data);
                     } else {
-                        var responseMessage = $base64.decode(response.data.responseMessage);
-                        def.reject(responseMessage);
+                        def.reject();
                     }
                 });
             });
             return def.promise;
         }
 
-        function countPages(){
+        function countPages() {
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
                 $http({
-                    method : 'GET',
-                    url : terminalsApis.countPages,
+                    method: 'GET',
+                    url: terminalsApis.countPages,
                     headers: {
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
@@ -66,12 +67,12 @@
             return def.promise;
         }
 
-        function findPage(pageNumber){
+        function findPage(pageNumber) {
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
                 $http({
-                    method : 'GET',
-                    url : terminalsApis.findPage.replace('{pageNumber}', $base64.encode(pageNumber)),
+                    method: 'GET',
+                    url: terminalsApis.findPage.replace('{pageNumber}', $base64.encode(pageNumber)),
                     headers: {
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
@@ -82,22 +83,49 @@
             return def.promise;
         }
 
-        function createTerminal(terminal){
+        function createTerminal(terminal) {
             var def = $q.defer();
             Oauth2Service.getOauth2Token().then(function (tokenData) {
-                $log.debug($filter('json')(terminal), terminalsApis.create, tokenData.access_token);
-                $http.post(terminalsApis.create, terminal,{
+                terminal.userId = $base64.encode($rootScope.currentUser.userId);
+                $log.debug('*** Create Terminal ***', terminalsApis.create, tokenData.access_token);
+                $log.debug($filter('json')(terminal));
+                $http.post(terminalsApis.create, terminal, {
                     headers: {
-                        'Content-Type' : 'application/json',
+                        'Content-Type': 'application/json',
                         'Authorization': tokenData.token_type + ' ' + tokenData.access_token
                     }
                 }).then(function (response) {
                     var responseCode = $base64.decode(response.data.responseCode);
+                    var responseMessage = $base64.decode(response.data.responseMessage);
+                    $log.debug('Response :', responseCode, responseMessage);
                     if (responseCode === '1') {
+                        def.resolve();
+                    }
+                }).catch(function (error) {
+                    $log.error(error);
+                });
+            });
+            return def.promise;
+        }
 
-                    } else {
-                        var responseMessage = $base64.decode(response.data.responseMessage);
-                        def.reject(responseMessage);
+        function updateTerminal(terminal, terminalId) {
+            var def = $q.defer();
+            Oauth2Service.getOauth2Token().then(function (tokenData) {
+                terminal.userId = $base64.encode($rootScope.currentUser.userId);
+                var url = terminalsApis.update.replace('{terminalId}', $base64.encode(terminalId));
+                $log.debug('*** Update terminal ***', url, tokenData.access_token);
+                $log.debug($filter('json')(terminal));
+                $http.put(url, terminal, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                    }
+                }).then(function (response) {
+                    var responseCode = $base64.decode(response.data.responseCode);
+                    var responseMessage = $base64.decode(response.data.responseMessage);
+                    $log.debug('Response :', responseCode, responseMessage);
+                    if (responseCode === '1') {
+                        def.resolve();
                     }
                 }).catch(function (error) {
                     $log.error(error);
@@ -110,5 +138,6 @@
         this.findPage = findPage;
         this.findTerminal = findTerminal;
         this.createTerminal = createTerminal;
+        this.updateTerminal = updateTerminal;
     }
 })();

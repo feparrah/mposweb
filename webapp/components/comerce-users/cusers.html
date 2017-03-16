@@ -93,8 +93,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$invalid}">
-                                    <label for="name">{{'LABELS.NAME' | translate}}</label>
-                                    <input type="text" name="name" id="name" ng-model="vm.user.name" class="form-control" required ng-maxlength="20">
+                                    <label for="firstName">{{'Primer Nombre' | translate}}</label>
+                                    <input type="text" name="name" id="firstName" ng-model="vm.user.name" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$invalid}">
+                                    <label for="secondName">{{'Segundo Nombre' | translate}}</label>
+                                    <input type="text" name="name" id="secondName" ng-model="vm.user.secondName" class="form-control" required ng-maxlength="20">
                                     <div ng-messages="(vm.cUserForm.name.$touched || vm.cUserForm.name.$dirty) && vm.cUserForm.name.$error" class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
@@ -105,8 +117,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$invalid}">
-                                    <label for="lastname">{{'LABELS.LASTNAME' | translate}}</label>
+                                    <label for="lastname">{{'Primer Apellido' | translate}}</label>
                                     <input type="text" name="lastname" id="lastname" ng-model="vm.user.lastname" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$invalid}">
+                                    <label for="surname">{{'Segundo Apellido' | translate}}</label>
+                                    <input type="text" name="lastname" id="surname" ng-model="vm.user.surname" class="form-control" required ng-maxlength="20">
                                     <div ng-messages="(vm.cUserForm.lastname.$touched || vm.cUserForm.lastname.$dirty) && vm.cUserForm.lastname.$error" class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>

@@ -7,9 +7,11 @@
         vm.showConectionError = false;
         vm.commerceFound = false;
         vm.showCommerceNotFound = false;
+        vm.showSuccessMessage = false;
         vm.comerce = new Commerce();
 
         function findComerce(nit) {
+            vm.showSuccessMessage = false;
             if (vm.comercesForm.nit.$valid) {
 
                 ComercesService.findComerce(vm.comerce.nit).then(function (data) {
@@ -28,6 +30,7 @@
                     vm.commerceFound = true;
                     vm.showCommerceNotFound = false;
                 }).catch(function (error) {
+
                     vm.commerceFound = false;
                     vm.showCommerceNotFound = true;
                     resetForm();
@@ -44,13 +47,17 @@
             } else {
                 if (!vm.commerceFound) {
                     ComercesService.createCommerce(vm.comerce.createBody()).then(function () {
-                        
+                        successSend();
                     });
                 } else {
                     ComercesService.updateCommerce(vm.comerce.updateBody(), vm.comerce.nitId).then(function () {
-                        
+                        successSend();
                     });
                 }
+            }
+            function successSend(){
+                vm.showSuccessMessage = true;
+                resetForm();
             }
         }
 
@@ -109,6 +116,7 @@
             vm.comerce = new Commerce();
             vm.comercesForm.$setUntouched();
             vm.comercesForm.$setPristine();
+            vm.commerceFound = false;
         }
 
 

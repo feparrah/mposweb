@@ -9,6 +9,7 @@
         vm.businessTypes = [];
         vm.commerceFound = false;
         vm.showCommerceNotFound = false;
+        vm.showSuccessMessage = false;
         vm.comerce = new UcCommerce();
         BusinessTypeService.findAllBusinessTypes().then(function (list) {
 
@@ -29,17 +30,22 @@
             }else{
                 if(vm.commerceFound){
                     UniqueCodeService.updateUcCommerce(vm.comerce.updateBody(), vm.comerce.ucId).then(function () {
-                        resetForm();
+                        successSend();
                     });
                 }else {
                     UniqueCodeService.createUcCommerce(vm.comerce.createBody()).then(function () {
-                        resetForm();
+                        successSend();
                     });
                 }
+            }
+            function successSend(){
+                vm.showSuccessMessage = true;
+                resetForm();
             }
         }
         
         function findUcCommerce(uniqueCode){
+            vm.showSuccessMessage = false;
             if(vm.comerceForm.ucode.$invalid){
                 vm.comerceForm.ucode.$setTouched();
             }else{
@@ -130,6 +136,7 @@
             vm.comerce = new UcCommerce();
             vm.comerceForm.$setUntouched();
             vm.comerceForm.$setPristine();
+            vm.commerceFound = false;
         }
 
         vm.findUcCommerce = findUcCommerce;

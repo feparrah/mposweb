@@ -9,15 +9,16 @@
 
         var schedule;
 
-        this.$get = function ($interval) {
+        this.$get = function ($interval,LoginService) {
             return {
-                init: function () {
+                init: function (userId) {
+                    LoginService.refreshSession(userId);
                     schedule = $interval(function () {
-                        console.log('Andres Felipe Gonzalez');
+                        LoginService.refreshSession(userId);
                     }, refreshSessionTime * 1000);
                 },
                 stop : function () {
-                    $interval.stop(schedule);
+                    $interval.cancel(schedule);
                 }
             }
         }

@@ -1,9 +1,4 @@
 {
-  "token": "/api/token",
-  "login": "/api/sessions",
-  "logout": "/api/{userId}/sessions",
-  "userInfo": "/api/users/{userId}",
-  "changePassword": "/api/{userId}/passwords",
   "dev": {
     "token": "/api/token",
     "login": {
@@ -13,6 +8,7 @@
       "version": "4.2.2"
     },
     "logout": "/api/{userId}/sessions",
+    "refreshSession" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/{userId}/sessions",
     "userInfo": "/api/users/{userId}",
     "changePassword": "/api/{userId}/passwords",
     "comerces": {

@@ -2,13 +2,16 @@
 
     angular.module('mpos').config(config);
 
-    config.$inject = ['$stateProvider','$urlRouterProvider','$translateProvider','netcomEnvironmentProvider','$logProvider','sessionScheduleProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$translateProvider', 'netcomEnvironmentProvider', '$logProvider', 'sessionScheduleProvider','IdleProvider','KeepaliveProvider'];
 
-    function config($stateProvider, $urlRouterProvider, $translateProvider, netcomEnvironmentProvider,$logProvider,sessionScheduleProvider) {
+    function config($stateProvider, $urlRouterProvider, $translateProvider, netcomEnvironmentProvider, $logProvider, sessionScheduleProvider, IdleProvider, KeepaliveProvider) {
 
         netcomEnvironmentProvider.setEnvironment('dev');
         $logProvider.debugEnabled(true);
-        sessionScheduleProvider.setRefreshSessionTime(2);
+        sessionScheduleProvider.setRefreshSessionTime(60);
+        IdleProvider.idle(60);
+        IdleProvider.timeout(5);
+        KeepaliveProvider.interval(10);
 
         $stateProvider.state('login', {
             url: '/login',
@@ -38,7 +41,7 @@
             controllerAs: 'vm'
         }).state('comerces.form', {
             url: '/comerciosnit',
-            templateUrl: 'components/comerces/comerces.html',
+            templateUrl: 'components/comerces/comerces.html'
         }).state('comerces.list', {
             url: '/listacomercios',
             templateUrl: 'components/comerces/comerces-list.html'

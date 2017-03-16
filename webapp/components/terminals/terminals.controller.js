@@ -1,7 +1,10 @@
-angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsService, Terminal, $log, BusinessTypeService, BusinessType) {
+angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsService, Terminal, $log, BusinessTypeService, BusinessType, $base64) {
     var vm = this;
 
     vm.businessTypes = [];
+    vm.terminalFound = false;
+    vm.showTerminalNotFound = false;
+    vm.showSuccessMessage = false;
     vm.terminal = new Terminal();
     BusinessTypeService.findAllBusinessTypes().then(function (list) {
 
@@ -14,17 +17,26 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
     });
 
 
-    function sendTerminal(){
+    function sendTerminal() {
         if (vm.terminalForm.$invalid) {
             angular.forEach(vm.terminalForm.$error.required, function (field) {
                 field.$setTouched();
             });
-        }else{
-            TerminalsService.createTerminal(vm.terminal.createBody()).then(function (success) {
-                $log.info(success);
-            }).catch(function (error) {
-                $log.error(error);
-            });
+        } else {
+
+            if (!vm.terminalFound) {
+                TerminalsService.createTerminal(vm.terminal.createBody()).then(function (success) {
+                    successSend();
+                });
+            }else{
+                TerminalsService.updateTerminal(vm.terminal.updateBody(), vm.terminal.terminalId).then(function (success) {
+                    successSend();
+                });
+            }
+            function successSend(){
+                vm.showSuccessMessage = true;
+                resetForm();
+            }
         }
     }
 
@@ -45,7 +57,8 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
                     tData.terminal.license,
                     tData.terminal.stateId,
                     tData.terminal.telephoneNumber,
-                    tData.terminal.terminalId
+                    tData.terminal.terminalId,
+                    ""
                 );
                 vm.terminals.push(terminal);
             });
@@ -78,16 +91,52 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
         });
     }
 
-    function findTerminal(terminalCode){
-        if(vm.terminalForm.terminal.$valid){
+    function findTerminal(terminalCode) {
+        vm.showSuccessMessage = false;
+        if (vm.terminalForm.terminal.$valid) {
             TerminalsService.findTerminal(terminalCode).then(function (data) {
-                console.log(data);
                 vm.terminal = new Terminal();
                 vm.terminal.setCode(terminalCode, false);
+                var bt;
+                vm.businessTypes.forEach(function (item) {
+                    if ($base64.decode(data.businessType) === item.businessTypeId) {
+                        bt = item;
+                    }
+                });
+                vm.terminal.setData(
+                    data.address,
+                    bt,
+                    data.cityName,
+                    data.businessName,
+                    data.countryName,
+                    data.email,
+                    data.imei,
+                    data.license,
+                    data.stateId,
+                    data.cellphoneNumber,
+                    data.terminalId,
+                    data.uniqueCode
+                );
+                if (vm.terminal.terminalId != '') {
+                    vm.terminalFound = true;
+                    vm.showTerminalNotFound = false;
+                } else {
+                    vm.terminalFound = false;
+                    vm.showTerminalNotFound = true;
+                    resetForm();
+                }
             }).catch(function (error) {
                 $log.info(error);
+
             });
         }
+    }
+
+    function resetForm() {
+        vm.terminal = new Terminal();
+        vm.terminalForm.$setUntouched();
+        vm.terminalForm.$setPristine();
+        vm.terminalFound = false;
     }
 
     vm.showConectionError = false;
@@ -97,7 +146,7 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
     vm.previousPage = previousPage;
     vm.findTerminal = findTerminal;
     vm.sendTerminal = sendTerminal;
-
+    vm.resetForm = resetForm;
 
 
 });

@@ -7,8 +7,18 @@ function loginService($resource, $log, $q, $rootScope, $cookieStore, $http, $bas
        restUrls = apis;
     });
 
-
-
+    this.refreshSession = function (userId) {
+        var def =  $q.defer();
+        Oauth2Service.getOauth2Token().then(function(tokenData){
+            var url = restUrls.refreshSession.replace('{userId}', $base64.encode(userId));
+            $http.put(url,{},{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenData.token_type + ' ' + tokenData.access_token
+                }
+            });
+        });
+    };
 
     this.changePassword = function(userId, currentPassword, newPassword, confirmedPassword){
         var def = $q.defer();

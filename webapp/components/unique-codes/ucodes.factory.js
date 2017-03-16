@@ -11,7 +11,7 @@
             this.notEmptyUniqueCode = true;
         };
 
-        UcCommerce.prototype.setData = function(address, cityName, contactName, countryName, email, name, nit, stateId, telephoneContact, ucId){
+        UcCommerce.prototype.setData = function(address, cityName, contactName, countryName, email, name, nit, stateId, telephoneContact, ucId, businessType){
             this.address = $base64.decode(address);
             this.cityName =  $base64.decode(cityName);
             this.contactName = $base64.decode(contactName);
@@ -22,6 +22,7 @@
             this.stateId = $base64.decode(stateId);
             this.telephoneContact = $base64.decode(telephoneContact);
             this.ucId = $base64.decode(ucId);
+            this.businessType = typeof businessType == 'string' ? $base64.decode(businessType) : businessType;
             this.notEmptyAddress = address !== '';
             this.notEmptyCityName = cityName !== '';
             this.notEmptyContactName = contactName !== '';
