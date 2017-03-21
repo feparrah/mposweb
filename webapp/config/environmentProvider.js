@@ -8,7 +8,7 @@
         };
 
         this.$get = ['$http', function ($http) {
-            return $http.get('/Config/restApi.json').then(function (response) {
+            return $http.get('/config/restApi.json').then(function (response) {
                 return response.data[environment];
             });
         }];
