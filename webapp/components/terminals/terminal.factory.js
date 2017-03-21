@@ -45,7 +45,7 @@
             return {
                 terminal: $base64.encode(terminal.terminalCode),
                 uniqueCode: $base64.encode(terminal.uniqueCode),
-                businessType: terminal.businessType ? $base64.encode(terminal.businessType) : '',
+                businessType: terminal.businessType ? $base64.encode(terminal.businessType.businessTypeId) : '',
                 telephoneContact: $base64.encode(terminal.thelephoneNumber),
                 email: $base64.encode(terminal.email),
                 address: $base64.encode(terminal.address),

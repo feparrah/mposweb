@@ -1,16 +1,16 @@
 {
   "dev": {
-    "token": "/api/token",
+    "token": "http://localhost:3000/api/token",
     "login": {
-      "url": "/api/sessions",
+      "url": "http://localhost:3000/api/sessions",
       "channel": "1",
       "uuid": "82e601b7059dbf50",
       "version": "4.2.2"
     },
-    "logout": "/api/{userId}/sessions",
+    "logout": "http://localhost:3000/api/{userId}/sessions",
     "refreshSession" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/{userId}/sessions",
-    "userInfo": "/api/users/{userId}",
-    "changePassword": "/api/{userId}/passwords",
+    "userInfo": "http://localhost:3000/api/users/{userId}",
+    "changePassword": "http://localhost:3000/api/{userId}/passwords",
     "comerces": {
       "findComerce": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/{id}",
       "countPages": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/nits/pages",
@@ -35,6 +35,14 @@
     "businessType": {
       "findAllBusinessTypes": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types",
       "create": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types"
+    },
+    "user" : {
+      "findUser" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/commerces/{user}"
+    },
+    "aUser" : {
+      "findAUser" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin/{user}",
+      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin",
+      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin/{userId}"
     }
   }
 }

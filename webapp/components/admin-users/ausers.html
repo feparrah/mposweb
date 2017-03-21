@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <form name="vm.admUserForm" novalidate ng-submit="vm.test()">
+        <form name="vm.admUserForm" novalidate ng-submit="vm.sendUser()">
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12">
@@ -12,11 +12,21 @@
                         <div class="alert alert-danger">Error de conexión</div>
                     </div>
                 </div>
+                <div class="row" ng-if="vm.showUserNotFound">
+                    <div class="col-md-10">
+                        <div class="alert alert-info">Usuario no econtrado.</div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.showSucces">
+                    <div class="col-md-10">
+                        <div class="alert alert-success">Proceso Exitoso.</div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.user.$touched || vm.admUserForm.user.$dirty) && vm.admUserForm.user.$invalid}">
                             <label for="user">{{'LABELS.USER' | translate}}</label>
-                            <input type="text" name="user" id="user" ng-model="vm.user.id" required ng-maxlength="50" class="form-control">
+                            <input type="text" name="user" id="user" ng-model="vm.user.userName" ng-disabled="vm.user.isNotEmptyUserName" required ng-maxlength="50" class="form-control">
                             <div ng-messages="(vm.admUserForm.user.$touched || vm.admUserForm.user.$dirty) && vm.admUserForm.user.$error" class="help-block">
                                 <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                 <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:50}'}}</div>
@@ -24,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn150px btn-sm"ng-click="vm.test()"><i class="glyphicon glyphicon-search" ></i> Consultar</button>
+                        <button type="button" class="btn btn-primary btn150px btn-sm"ng-click="vm.findAUser(vm.user.userName)"><i class="glyphicon glyphicon-search" ></i> Consultar</button>
                         <button ng-click="vm.showAllAusers()" class="btn btn-primary btn150px btn-sm"><i class="glyphicon glyphicon-list"></i>&nbsp; Ver todos</button>
                     </div>
                 </div>
@@ -34,7 +44,7 @@
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.doctype.$touched || vm.admUserForm.doctype.$dirty) && vm.admUserForm.doctype.$invalid}">
                                     <label for="doctype">{{'LABELS.DOC_TYPE' | translate}}</label>
-                                    <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.doctype" required>
+                                    <select name="doctype" id="doctype" class="form-control" ng-model="vm.user.documentType" ng-disabled="vm.user.isNotEmptyDocumentType" required>
                                         <option value="">Seleccione</option>
                                         <option value="1">CEDULA DE CIUDADANIA</option>
                                         <option value="2">NIT</option>
@@ -48,7 +58,7 @@
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.docnumber.$touched || vm.admUserForm.docnumber.$dirty) && vm.admUserForm.docnumber.$invalid}">
                                     <label for="docnumber">{{'LABELS.DOC_NUMBER' | translate}}</label>
-                                    <input type="text" name="docnumber" id="docnumber" ng-model="vm.user.docnumber" class="form-control" required ng-maxlength="12" ng-pattern="/^\d*$/">
+                                    <input type="text" name="docnumber" id="docnumber" ng-model="vm.user.documentNumber" ng-disabled="vm.user.isNotEmptyDocumentNumber" class="form-control" required ng-maxlength="10000" >
                                     <div ng-messages="(vm.admUserForm.docnumber.$touched || vm.admUserForm.docnumber.$dirty) && vm.admUserForm.docnumber.$error" class="help-block">
                                         <div ng-message="pattern">{{'ERRORS.ONLY_NUMBERS_FIELD' | translate}}</div>
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
@@ -61,7 +71,7 @@
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.email.$touched || vm.admUserForm.email.$dirty) && vm.admUserForm.email.$invalid}">
                                     <label for="email">{{'LABELS.EMAIL' | translate}}</label>
-                                    <input type="text" name="email" id="email" ng-model="vm.user.email" class="form-control" required ng-maxlength="60" ng-pattern="/^.+@[a-z0-9]+\.[a-z\.]{1,}$/i">
+                                    <input type="text" name="email" id="email" ng-model="vm.user.email" ng-disabled="vm.user.isNotEmptyEmail" class="form-control" required ng-maxlength="60" ng-pattern="/^.+@[a-z0-9]+\.[a-z\.]{1,}$/i">
                                     <div ng-messages="(vm.admUserForm.email.$touched || vm.admUserForm.email.$dirty) && vm.admUserForm.email.$error" class="help-block">
                                         <div ng-message="pattern">{{'ERRORS.EMAIL_FIELD' | translate}}</div>
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
@@ -72,10 +82,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.name.$touched || vm.admUserForm.name.$dirty) && vm.admUserForm.name.$invalid}">
-                                    <label for="name">{{'LABELS.NAME' | translate}}</label>
-                                    <input type="text" name="name" id="name" ng-model="vm.user.name" class="form-control" required ng-maxlength="20">
-                                    <div ng-messages="(vm.admUserForm.name.$touched || vm.admUserForm.name.$dirty) && vm.admUserForm.name.$error" class="help-block">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.firstName.$touched || vm.admUserForm.firstName.$dirty) && vm.admUserForm.firstName.$invalid}">
+                                    <label for="firstName">{{'Primer Nombre' | translate}}</label>
+                                    <input type="text" name="firstName" id="firstName" ng-model="vm.user.firstName" ng-disabled="vm.user.isNotEmptyFirstName" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.firstName.$touched || vm.admUserForm.firstName.$dirty) && vm.admUserForm.firstName.$error" class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
                                     </div>
@@ -84,10 +94,34 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.lastname.$touched || vm.admUserForm.lastname.$dirty) && vm.admUserForm.lastname.$invalid}">
-                                    <label for="lastname">{{'LABELS.LASTNAME' | translate}}</label>
-                                    <input type="text" name="lastname" id="lastname" ng-model="vm.user.lastname" class="form-control" required ng-maxlength="20">
-                                    <div ng-messages="(vm.admUserForm.lastname.$touched || vm.admUserForm.lastname.$dirty) && vm.admUserForm.lastname.$error" class="help-block">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.middleName.$touched || vm.admUserForm.middleName.$dirty) && vm.admUserForm.middleName.$invalid}">
+                                    <label for="middleName">{{'Segundo Nombre' | translate}}</label>
+                                    <input type="text" name="middleName" id="middleName" ng-model="vm.user.middleName" ng-disabled="vm.user.isNotEmptyMiddleName" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.middleName.$touched || vm.admUserForm.middleName.$dirty) && vm.admUserForm.middleName.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.lastName.$touched || vm.admUserForm.lastName.$dirty) && vm.admUserForm.lastName.$invalid}">
+                                    <label for="lastName">{{'Primer Apellido' | translate}}</label>
+                                    <input type="text" name="lastName" id="lastName" ng-model="vm.user.lastName" ng-disabled="vm.user.isNotEmptyLastName" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.lastName.$touched || vm.admUserForm.lastName.$dirty) && vm.admUserForm.lastName.$error" class="help-block">
+                                        <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
+                                        <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.secondSurname.$touched || vm.admUserForm.secondSurname.$dirty) && vm.admUserForm.secondSurname.$invalid}">
+                                    <label for="secondSurname">{{'Segundo Apellido' | translate}}</label>
+                                    <input type="text" name="secondSurname" id="secondSurname" ng-model="vm.user.secondSurname" ng-disabled="vm.user.isNotEmptySecondSurname" class="form-control" required ng-maxlength="20">
+                                    <div ng-messages="(vm.admUserForm.secondSurname.$touched || vm.admUserForm.secondSurname.$dirty) && vm.admUserForm.secondSurname.$error" class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
                                     </div>
@@ -98,7 +132,7 @@
                             <div class="col-md-12">
                                 <div class="form-group" ng-class="{'has-error' : (vm.admUserForm.password.$touched || vm.admUserForm.password.$dirty) && vm.admUserForm.password.$invalid}">
                                     <label for="password">{{'LABELS.PASSWORD' | translate}}</label>
-                                    <input type="text" name="password" id="password" ng-model="vm.user.password" class="form-control" required ng-maxlength="20">
+                                    <input type="text" name="password" id="password" ng-model="vm.user.password" ng-disabled="vm.user.isNotEmptyPassword"  class="form-control">
                                     <div ng-messages="(vm.admUserForm.password.$touched || vm.admUserForm.password.$dirty) && vm.admUserForm.password.$error" class="help-block">
                                         <div ng-message="required">{{'ERRORS.REQUIRED_FIELD' | translate}}</div>
                                         <div ng-message="maxlength">{{'ERRORS.MAX_LENGTH_FIELD' | translate: '{max:20}'}}</div>
@@ -111,10 +145,10 @@
                                 <label for="active" class="control-label">{{'LABELS.ACTIVE' | translate}}</label>
                                 <div id="active">
 
-                                    <label class="radio-inline"><input type="radio" name="active" checked>{{'LABELS.YES'
+                                    <label class="radio-inline"><input type="radio" name="active" ng-model="vm.user.stateId" value="1">{{'LABELS.YES'
                                         |
                                         translate}}</label>
-                                    <label class="radio-inline"><input type="radio" name="active">{{'LABELS.NO' |
+                                    <label class="radio-inline"><input type="radio" name="active" ng-model="vm.user.stateId" value="2">{{'LABELS.NO' |
                                         translate}}</label>
                                 </div>
                             </div>
@@ -126,42 +160,42 @@
                                 <div id="access">
                                     <div>
                                     <label class="control-label label150px">{{'SECTIONS.COMERCES' | translate}}</label>
-                                    <label class="radio-inline"><input type="radio" name="acomerces" checked>{{'LABELS.YES'
+                                    <label class="radio-inline"><input type="radio" name="acomerces" ng-model="vm.user.profileNit" value="1">{{'LABELS.YES'
                                         |
                                         translate}}</label>
-                                    <label class="radio-inline"><input type="radio" name="acomerces">{{'LABELS.NO' |
+                                    <label class="radio-inline"><input type="radio" name="acomerces" ng-model="vm.user.profileNit" value="0">{{'LABELS.NO' |
                                         translate}}</label>
                                     </div>
                                     <div>
                                         <label class="control-label label150px">{{'SECTIONS.UNIQUE_CODE' | translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aucode" checked>{{'LABELS.YES'
+                                        <label class="radio-inline"><input type="radio" name="aucode" ng-model="vm.user.profileUniqueCode" value="1">{{'LABELS.YES'
                                             |
                                             translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aucode">{{'LABELS.NO' |
+                                        <label class="radio-inline"><input type="radio" name="aucode" ng-model="vm.user.profileUniqueCode" value="0">{{'LABELS.NO' |
                                             translate}}</label>
                                     </div>
                                     <div>
                                         <label class="control-label label150px">{{'SECTIONS.TERMINALS' | translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aterminals" checked>{{'LABELS.YES'
+                                        <label class="radio-inline"><input type="radio" name="aterminals" ng-model="vm.user.profileTerminal" value="1">{{'LABELS.YES'
                                             |
                                             translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aterminals">{{'LABELS.NO' |
+                                        <label class="radio-inline"><input type="radio" name="aterminals" ng-model="vm.user.profileTerminal" value="0">{{'LABELS.NO' |
                                             translate}}</label>
                                     </div>
                                     <div>
                                         <label class="control-label label150px">{{'SECTIONS.ADMIN_USERS' | translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aausers" checked>{{'LABELS.YES'
+                                        <label class="radio-inline"><input type="radio" name="aausers" ng-model="vm.user.profileUserAdmin" value="1">{{'LABELS.YES'
                                             |
                                             translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="aausers">{{'LABELS.NO' |
+                                        <label class="radio-inline"><input type="radio" name="aausers" ng-model="vm.user.profileUserAdmin" value="0">{{'LABELS.NO' |
                                             translate}}</label>
                                     </div>
                                     <div>
                                         <label class="control-label label150px">{{'SECTIONS.COMERCE_USERS' | translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="acusers" checked>{{'LABELS.YES'
+                                        <label class="radio-inline"><input type="radio" name="acusers" ng-model="vm.user.profileUserCommerce" value="1">{{'LABELS.YES'
                                             |
                                             translate}}</label>
-                                        <label class="radio-inline"><input type="radio" name="acusers">{{'LABELS.NO' |
+                                        <label class="radio-inline"><input type="radio" name="acusers" ng-model="vm.user.profileUserCommerce" value="0">{{'LABELS.NO' |
                                             translate}}</label>
                                     </div>
                                 </div>

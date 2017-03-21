@@ -11,7 +11,6 @@
         sessionScheduleProvider.setRefreshSessionTime(60);
         IdleProvider.idle(60);
         IdleProvider.timeout(5);
-        KeepaliveProvider.interval(10);
 
         $stateProvider.state('login', {
             url: '/login',

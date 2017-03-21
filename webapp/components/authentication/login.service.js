@@ -8,7 +8,6 @@ function loginService($resource, $log, $q, $rootScope, $cookieStore, $http, $bas
     });
 
     this.refreshSession = function (userId) {
-        var def =  $q.defer();
         Oauth2Service.getOauth2Token().then(function(tokenData){
             var url = restUrls.refreshSession.replace('{userId}', $base64.encode(userId));
             $http.put(url,{},{
@@ -22,6 +21,7 @@ function loginService($resource, $log, $q, $rootScope, $cookieStore, $http, $bas
 
     this.changePassword = function(userId, currentPassword, newPassword, confirmedPassword){
         var def = $q.defer();
+
         Oauth2Service.getOauth2Token().then(function(tokenData){
             var payload = {
                 currentPassword : $base64.encode(sha512(currentPassword)),

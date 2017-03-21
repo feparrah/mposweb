@@ -19,6 +19,7 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
 
     function sendTerminal() {
         if (vm.terminalForm.$invalid) {
+            console.log('invalid', vm.terminalForm);
             angular.forEach(vm.terminalForm.$error.required, function (field) {
                 field.$setTouched();
             });
@@ -95,6 +96,7 @@ angular.module('mpos').controller('terminalsCtrl', function ($state, TerminalsSe
         vm.showSuccessMessage = false;
         if (vm.terminalForm.terminal.$valid) {
             TerminalsService.findTerminal(terminalCode).then(function (data) {
+                console.log(data);
                 vm.terminal = new Terminal();
                 vm.terminal.setCode(terminalCode, false);
                 var bt;

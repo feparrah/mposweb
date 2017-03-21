@@ -1,6 +1,6 @@
 angular.module('mpos').controller('mainCtrl', function (LoginService, $state, $scope, $rootScope, $http, sessionSchedule,$uibModal,Idle) {
     var vm = this;
-    Idle.watch();
+
     $http.get('https://jsonip.com/').then(function (response) {
         vm.currentIpAddress = response.data.ip;
     });
@@ -76,7 +76,6 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state, $s
             LoginService.validateUser(vm.credentials, vm.currentIpAddress).then(function () {
                 vm.showLoginError = false;
                 vm.credentials = {};
-                Idle.watch();
                 $state.go('home');
             }).catch(function (error) {
                 vm.showLoginError = true;
@@ -101,6 +100,7 @@ angular.module('mpos').controller('mainCtrl', function (LoginService, $state, $s
             vm.logedUser = true;
             vm.currentUser = newVal;
             sessionSchedule.init(vm.currentUser.userId);
+            Idle.watch();
         }
     });
 });

@@ -2,16 +2,80 @@
     angular.module('mpos').controller('adminUsersCtrl', adminUsersCtrl);
 
 
-    function adminUsersCtrl($state) {
+    function adminUsersCtrl($state, AUserService, AUser) {
         var vm = this;
 
-        vm.showAllAusers = function () {
-            $state.transitionTo('ausers.list');
-        };
+        vm.user = new AUser();
+        vm.userFound = false;
+        vm.showUserNotFound = false;
+        vm.showSucces = false;
 
-        vm.showConectionError = false;
-        vm.test = function () {
-            vm.showConectionError = true;
+
+        vm.findAUser = function (userName) {
+            if(vm.admUserForm.user.$valid){
+                AUserService.findAUser(userName).then(function (data) {
+                    if(data.userId != ''){
+                        console.log(data);
+                        vm.user.setUserName(userName, false);
+                        vm.user.setData(
+                            data.userId,
+                            data.documentType,
+                            data.documentNumber,
+                            data.email,
+                            data.firstName,
+                            data.middleName,
+                            data.lastName,
+                            data.secondSurname,
+                            "",
+                            data.stateId,
+                            data.profileNit,
+                            data.profileUniqueCode,
+                            data.profileTerminal,
+                            data.profileUserCommerce,
+                            data.profileUserAdmin
+                        );
+                        console.log(vm.user);
+                        vm.userFound = true;
+                        vm.showUserNotFound = false;
+                    }else{
+                        vm.userFound = false;
+                        vm.showUserNotFound = true;
+                        vm.resetForm();
+                    }
+
+                });
+            }else {
+                vm.admUserForm.user.$setTouched();
+            }
+
+        }
+        
+        vm.sendUser = function () {
+            console.log('eeee');
+            if (vm.admUserForm.$invalid) {
+                console.log('invalid', vm.admUserForm);
+                angular.forEach(vm.admUserForm.$error.required, function (field) {
+                    field.$setDirty();
+                    field.$setTouched();
+                });
+            }else{
+                console.log('asd');
+                if(vm.userFound){
+                    AUserService.updateAUser(vm.user.updateBody(), vm.user.userId).then(function () {
+                        vm.showSucces = true;
+                        vm.resetForm();
+                    });
+                }else{
+                    AUserService.createAUser(vm.user.createBody());
+                }
+            }
+        }
+
+        vm.resetForm = function () {
+            vm.user = new AUser();
+            vm.admUserForm.$setUntouched();
+            vm.admUserForm.$setPristine();
+            window.scrollTo(0,0);
         }
     }
 })();
