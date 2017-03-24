@@ -74,7 +74,6 @@ function loginService($resource, $log, $q, $rootScope, $cookieStore, $http, $bas
     this.validateUser = function(credentials, ipAddress){
         var def = $q.defer();
 
-
         Oauth2Service.getOauth2Token().then(function(tokenData){
             var payload = {
                 user: $base64.encode(credentials.username),

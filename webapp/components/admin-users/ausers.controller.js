@@ -51,15 +51,12 @@
         }
         
         vm.sendUser = function () {
-            console.log('eeee');
             if (vm.admUserForm.$invalid) {
-                console.log('invalid', vm.admUserForm);
                 angular.forEach(vm.admUserForm.$error.required, function (field) {
                     field.$setDirty();
                     field.$setTouched();
                 });
             }else{
-                console.log('asd');
                 if(vm.userFound){
                     AUserService.updateAUser(vm.user.updateBody(), vm.user.userId).then(function () {
                         vm.showSucces = true;
@@ -75,6 +72,7 @@
             vm.user = new AUser();
             vm.admUserForm.$setUntouched();
             vm.admUserForm.$setPristine();
+            vm.showSucces = false;
             window.scrollTo(0,0);
         }
     }

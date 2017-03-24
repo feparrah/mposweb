@@ -20,7 +20,8 @@
     "MAX_LENGTH_FIELD": "Digite maximo {{max}} caracteres",
     "MIN_LENGTH_FIELD" : "Digite minimo {{min}} caracteres",
     "EMAIL_FIELD" : "Ingrese un correo electronico valido",
-    "COMMERCE_NOT_FOUND" : "Comercio {{commerce}} no encontrado"
+    "COMMERCE_NOT_FOUND" : "Comercio {{commerce}} no encontrado",
+    "COMMERCE_NEED_TO_BE_SEARCHED" : "Es necesario consultar el comercio antes de guardar"
   },
   "LABELS": {
     "NIT": "NIT",

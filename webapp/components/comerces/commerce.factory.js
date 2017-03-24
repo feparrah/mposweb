@@ -21,12 +21,12 @@
             this.nitId = $base64.decode(nitId);
             this.stateId = $base64.decode(stateId);
             this.telephoneContact = $base64.decode(telephoneContact);
-            this.notEmptyAddress = address !== '';
+            //this.notEmptyAddress = address !== '';
             this.notEmptyBusinessName = businessName !== '';
             this.notEmptyCity = city !== '';
-            this.notEmptyContactName = contactName !== '';
+            //this.notEmptyContactName = contactName !== '';
             this.notEmptyCountry = country !== '';
-            this.notEmptyTelephoneContact = telephoneContact !== '';
+            //this.notEmptyTelephoneContact = telephoneContact !== '';
         };
 
 
@@ -37,7 +37,7 @@
                 nit: $base64.encode(commerce.nit),
                 businessName: $base64.encode(commerce.businessName),
                 address: $base64.encode(commerce.address),
-                city: $base64.encode(commerce.city),
+                city: $base64.encode(commerce.cityCode),
                 contactName: $base64.encode(commerce.contactName),
                 telephoneContact: $base64.encode(commerce.telephoneContact)
             }

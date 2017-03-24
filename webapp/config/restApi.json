@@ -36,13 +36,15 @@
       "findAllBusinessTypes": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types",
       "create": "https://support.netcom.com.co:9546/mpos-merchant/api/commerces/business_types"
     },
-    "user" : {
-      "findUser" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/commerces/{user}"
-    },
     "aUser" : {
       "findAUser" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin/{user}",
       "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin",
       "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/admin/{userId}"
+    },
+    "cUser" : {
+      "findCUser" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/commerces/{user}",
+      "create" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/commerces",
+      "update" : "https://support.netcom.com.co:9546/mpos-merchant/api/users/commerces/{userId}"
     }
   }
 }

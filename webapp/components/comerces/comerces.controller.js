@@ -2,7 +2,7 @@
 
     angular.module('mpos').controller('comercesCtrl', commercesCtrl);
 
-    function commercesCtrl($state, ComercesService, $log, Commerce) {
+    function commercesCtrl($state, ComercesService, $log, Commerce , $filter) {
         var vm = this;
         vm.showConectionError = false;
         vm.commerceFound = false;
@@ -15,6 +15,7 @@
             if (vm.comercesForm.nit.$valid) {
 
                 ComercesService.findComerce(vm.comerce.nit).then(function (data) {
+                    console.log(data);
                     vm.comerce.setNit(nit, false);
                     vm.comerce.setData(
                         data.address,
@@ -27,11 +28,18 @@
                         data.stateId,
                         data.telephoneContact
                     );
-                    vm.commerceFound = true;
+
+                    if(vm.comerce.nitId === ""){
+                        vm.commerceFound = false;
+                        vm.comerce.stateId = "2";
+                    }else{
+                        vm.commerceFound = true;
+                    }
                     vm.showCommerceNotFound = false;
                 }).catch(function (error) {
 
                     vm.commerceFound = false;
+                    vm.infoMessage = $filter('translate')('ERRORS.COMMERCE_NOT_FOUND');
                     vm.showCommerceNotFound = true;
                     resetForm();
                 });
