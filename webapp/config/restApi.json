@@ -3,7 +3,7 @@
     "token": "http://localhost:3000/api/token",
     "login": {
       "url": "http://localhost:3000/api/sessions",
-      "channel": "1",
+      "channel": "2",
       "uuid": "82e601b7059dbf50",
       "version": "4.2.2"
     },
